@@ -1,0 +1,12 @@
+# folders
+.vs/
+packages/
+obj/
+bin/
+bower_components/
+
+# files
+*.suo
+*.DotSettings.user
+*.csproj.DotSettings
+*.csproj.user
