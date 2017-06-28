@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace Main
+﻿namespace ch.wuerth.tobias.filehandler.Main
 {
+    #region usings
+
+    using System.Windows.Forms;
+
+    #endregion
+
     public partial class Form1 : Form
     {
         public Form1()

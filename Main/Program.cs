@@ -1,4 +1,4 @@
-﻿namespace Main
+﻿namespace ch.wuerth.tobias.filehandler.Main
 {
     #region usings
 
