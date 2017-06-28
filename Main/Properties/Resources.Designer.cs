@@ -59,5 +59,14 @@ namespace ch.wuerth.tobias.filehandler.Main.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose the root directory for the program to run through.
+        /// </summary>
+        internal static string FormMain_FolderBrowserDialog_Description {
+            get {
+                return ResourceManager.GetString("FormMain_FolderBrowserDialog_Description", resourceCulture);
+            }
+        }
     }
 }
