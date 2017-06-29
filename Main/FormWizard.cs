@@ -174,7 +174,8 @@
         {
             if (e.ColumnIndex == ColumnExtensions.Index && e.RowIndex != -1 && null != e.Value)
             {
-                e.Value = (e.Value as IEnumerable<String>)?.Aggregate((a, b) => $"*.{a}, *.{b}");
+                List<String> extensions = e.Value as List<String> ?? new List<String>();
+                e.Value = extensions.Any() ? extensions.Aggregate((a, b) => $"*.{a}, *.{b}") : "";
                 e.FormattingApplied = true;
             }
         }
