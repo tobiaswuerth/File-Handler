@@ -117,37 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FormMain_FolderBrowserDialog_Description" xml:space="preserve">
-    <value>Choose the root directory for the program to run through</value>
-  </data>
-  <data name="hint_body_ambiguous_plugin" xml:space="preserve">
-    <value>Cannot start because there is an ambiguous choice between one or more plugins handling the same file extension.</value>
-  </data>
-  <data name="hint_body_no_plugin_folder" xml:space="preserve">
-    <value>The /plugins/ directory could not be found. The folder will be created.</value>
-  </data>
-  <data name="hint_body_no_plugin_found" xml:space="preserve">
-    <value>No plugin were found in the /plugins/ directory</value>
-  </data>
-  <data name="hint_body_no_plugin_selected" xml:space="preserve">
-    <value>At least one plugin has to be selected</value>
-  </data>
-  <data name="hint_body_no_root_directory" xml:space="preserve">
-    <value>No root directory selected</value>
-  </data>
-  <data name="hint_head_ambiguous_plugin" xml:space="preserve">
-    <value>Validation Error</value>
-  </data>
-  <data name="hint_head_no_plugin_folder" xml:space="preserve">
-    <value>Error loading plugins</value>
-  </data>
-  <data name="hint_head_no_plugin_found" xml:space="preserve">
-    <value>Notice</value>
-  </data>
-  <data name="hint_head_no_plugin_selected" xml:space="preserve">
-    <value>Validation Error</value>
-  </data>
-  <data name="hint_head_no_root_directory" xml:space="preserve">
-    <value>Validation Error</value>
-  </data>
+  <metadata name="ColumnEnablePlugin.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="ColumnName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="ColumnDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="ColumnExtensions.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="ColumnVersionMajor.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="ColumnVersionMinor.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>

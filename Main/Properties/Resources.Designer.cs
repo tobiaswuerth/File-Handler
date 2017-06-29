@@ -68,5 +68,95 @@ namespace ch.wuerth.tobias.filehandler.Main.Properties {
                 return ResourceManager.GetString("FormMain_FolderBrowserDialog_Description", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot start because there is an ambiguous choice between one or more plugins handling the same file extension..
+        /// </summary>
+        internal static string hint_body_ambiguous_plugin {
+            get {
+                return ResourceManager.GetString("hint_body_ambiguous_plugin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The /plugins/ directory could not be found. The folder will be created..
+        /// </summary>
+        internal static string hint_body_no_plugin_folder {
+            get {
+                return ResourceManager.GetString("hint_body_no_plugin_folder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No plugin were found in the /plugins/ directory.
+        /// </summary>
+        internal static string hint_body_no_plugin_found {
+            get {
+                return ResourceManager.GetString("hint_body_no_plugin_found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to At least one plugin has to be selected.
+        /// </summary>
+        internal static string hint_body_no_plugin_selected {
+            get {
+                return ResourceManager.GetString("hint_body_no_plugin_selected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No root directory selected.
+        /// </summary>
+        internal static string hint_body_no_root_directory {
+            get {
+                return ResourceManager.GetString("hint_body_no_root_directory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validation Error.
+        /// </summary>
+        internal static string hint_head_ambiguous_plugin {
+            get {
+                return ResourceManager.GetString("hint_head_ambiguous_plugin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading plugins.
+        /// </summary>
+        internal static string hint_head_no_plugin_folder {
+            get {
+                return ResourceManager.GetString("hint_head_no_plugin_folder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notice.
+        /// </summary>
+        internal static string hint_head_no_plugin_found {
+            get {
+                return ResourceManager.GetString("hint_head_no_plugin_found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validation Error.
+        /// </summary>
+        internal static string hint_head_no_plugin_selected {
+            get {
+                return ResourceManager.GetString("hint_head_no_plugin_selected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validation Error.
+        /// </summary>
+        internal static string hint_head_no_root_directory {
+            get {
+                return ResourceManager.GetString("hint_head_no_root_directory", resourceCulture);
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace ch.wuerth.tobias.filehandler.Main
 {
-    partial class FormMain
+    partial class FormWizard
     {
         /// <summary>
         /// Required designer variable.
@@ -64,7 +64,7 @@
             // 
             this.txtDirectoryPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDirectoryPath.Location = new System.Drawing.Point(16, 36);
-            this.txtDirectoryPath.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDirectoryPath.Margin = new System.Windows.Forms.Padding(2);
             this.txtDirectoryPath.Name = "txtDirectoryPath";
             this.txtDirectoryPath.ReadOnly = true;
             this.txtDirectoryPath.Size = new System.Drawing.Size(1072, 31);
@@ -96,45 +96,56 @@
             this.ColumnVersionMajor,
             this.ColumnVersionMinor});
             this.dgwPlugins.Location = new System.Drawing.Point(16, 108);
-            this.dgwPlugins.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgwPlugins.Margin = new System.Windows.Forms.Padding(2);
+            this.dgwPlugins.MultiSelect = false;
             this.dgwPlugins.Name = "dgwPlugins";
-            this.dgwPlugins.ReadOnly = true;
             this.dgwPlugins.RowTemplate.Height = 33;
+            this.dgwPlugins.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgwPlugins.Size = new System.Drawing.Size(1275, 224);
             this.dgwPlugins.TabIndex = 4;
+            this.dgwPlugins.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwPlugins_CellContentClick);
+            this.dgwPlugins.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgwPlugins_CellFormatting);
+            this.dgwPlugins.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgwPlugins_CellMouseUp);
             // 
             // ColumnEnablePlugin
             // 
+            this.ColumnEnablePlugin.FalseValue = "0";
             this.ColumnEnablePlugin.HeaderText = "Enabled";
+            this.ColumnEnablePlugin.IndeterminateValue = "0";
             this.ColumnEnablePlugin.Name = "ColumnEnablePlugin";
-            this.ColumnEnablePlugin.ReadOnly = true;
+            this.ColumnEnablePlugin.TrueValue = "1";
             // 
             // ColumnName
             // 
+            this.ColumnName.DataPropertyName = "Name";
             this.ColumnName.HeaderText = "Name";
             this.ColumnName.Name = "ColumnName";
             this.ColumnName.ReadOnly = true;
             // 
             // ColumnDescription
             // 
+            this.ColumnDescription.DataPropertyName = "Description";
             this.ColumnDescription.HeaderText = "Description";
             this.ColumnDescription.Name = "ColumnDescription";
             this.ColumnDescription.ReadOnly = true;
             // 
             // ColumnExtensions
             // 
+            this.ColumnExtensions.DataPropertyName = "Extensions";
             this.ColumnExtensions.HeaderText = "Extension";
             this.ColumnExtensions.Name = "ColumnExtensions";
             this.ColumnExtensions.ReadOnly = true;
             // 
             // ColumnVersionMajor
             // 
+            this.ColumnVersionMajor.DataPropertyName = "VersionMajor";
             this.ColumnVersionMajor.HeaderText = "Major Version";
             this.ColumnVersionMajor.Name = "ColumnVersionMajor";
             this.ColumnVersionMajor.ReadOnly = true;
             // 
             // ColumnVersionMinor
             // 
+            this.ColumnVersionMinor.DataPropertyName = "VersionMinor";
             this.ColumnVersionMinor.HeaderText = "Minor Version";
             this.ColumnVersionMinor.Name = "ColumnVersionMinor";
             this.ColumnVersionMinor.ReadOnly = true;
@@ -143,18 +154,19 @@
             // 
             this.btnStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStart.Location = new System.Drawing.Point(887, 453);
-            this.btnStart.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnStart.Margin = new System.Windows.Forms.Padding(2);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(200, 30);
             this.btnStart.TabIndex = 6;
             this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // btnClose
             // 
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.Location = new System.Drawing.Point(1092, 453);
-            this.btnClose.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(2);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(200, 30);
             this.btnClose.TabIndex = 7;
@@ -180,7 +192,7 @@
             this.cbxDirectoriesRecursively.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbxDirectoriesRecursively.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxDirectoriesRecursively.Location = new System.Drawing.Point(16, 371);
-            this.cbxDirectoriesRecursively.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbxDirectoriesRecursively.Margin = new System.Windows.Forms.Padding(2);
             this.cbxDirectoriesRecursively.Name = "cbxDirectoriesRecursively";
             this.cbxDirectoriesRecursively.Size = new System.Drawing.Size(314, 29);
             this.cbxDirectoriesRecursively.TabIndex = 9;
@@ -191,7 +203,7 @@
             // 
             this.nudThreads.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudThreads.Location = new System.Drawing.Point(16, 404);
-            this.nudThreads.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudThreads.Margin = new System.Windows.Forms.Padding(2);
             this.nudThreads.Maximum = new decimal(new int[] {
             25,
             0,
@@ -234,11 +246,11 @@
             this.btnChooseDirectory.UseVisualStyleBackColor = true;
             this.btnChooseDirectory.Click += new System.EventHandler(this.btnChooseDirectory_Click_1);
             // 
-            // FormMain
+            // FormWizard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1303, 498);
+            this.ClientSize = new System.Drawing.Size(1303, 528);
             this.Controls.Add(this.btnChooseDirectory);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.nudThreads);
@@ -253,7 +265,7 @@
             this.Font = new System.Drawing.Font("Tahoma", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "FormMain";
+            this.Name = "FormWizard";
             this.ShowIcon = false;
             this.Text = "File Handler";
             ((System.ComponentModel.ISupportInitialize)(this.dgwPlugins)).EndInit();
@@ -275,13 +287,13 @@
         private System.Windows.Forms.CheckBox cbxDirectoriesRecursively;
         private System.Windows.Forms.NumericUpDown nudThreads;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnChooseDirectory;
         private System.Windows.Forms.DataGridViewCheckBoxColumn ColumnEnablePlugin;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnDescription;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnExtensions;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnVersionMajor;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnVersionMinor;
-        private System.Windows.Forms.Button btnChooseDirectory;
     }
 }
 

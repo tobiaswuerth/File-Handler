@@ -3,7 +3,6 @@
     #region usings
 
     using System;
-    using System.Collections;
     using System.Collections.Generic;
 
     #endregion
@@ -24,6 +23,11 @@
 
         public delegate void OnWarningEvent(String message);
 
+        public readonly Guid Guid = Guid.NewGuid();
+        private String _description;
+        private List<String> _extensions;
+        private String _name;
+
         public OnErrorEvent OnError { private get; set; }
         public OnFinishEvent OnFinish { private get; set; }
         public OnStartEvent OnStart { private get; set; }
@@ -32,11 +36,16 @@
         public OnInitSuccessEvent OnInitSuccess { private get; set; }
         public OnInitErrorEvent OnInitError { private get; set; }
 
-        public String Name { get; protected set; }
+        public String Name { get => _name ?? throw new NotInitializedException(); protected set => _name = value; }
+
         public Int32 VersionMajor { get; protected set; }
         public Int32 VersionMinor { get; protected set; }
-        public Int32 Description { get; protected set; }
-        public IList<String> Extensions { get; protected set; }
+
+        public String Description { get => _description ?? throw new NotInitializedException(); protected set => _description = value; }
+
+        public List<String> Extensions { get => _extensions ?? throw new NotInitializedException(); protected set => _extensions = value; }
+
+        public Boolean IsInitialized { get; protected set; }
 
         protected void Error(String message)
         {
@@ -73,6 +82,11 @@
             OnInitError?.Invoke(message);
         }
 
-        protected abstract void OnInit();
+        public virtual void Initialize()
+        {
+            IsInitialized = true;
+        }
+
+        public abstract void Action(String path);
     }
 }
