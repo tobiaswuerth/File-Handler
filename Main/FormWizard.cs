@@ -74,6 +74,18 @@
             {
                 ShowWarning(Resources.hint_body_no_plugin_found, Resources.hint_head_no_plugin_found);
             }
+
+            plugins.ForEach(x =>
+            {
+                x.Logger = _logger;
+                x.OnInitError += message =>
+                                      {
+                                          _logger.Log(new LogEntry(x.Name, message, LogType.Error));
+                                      };
+                x.OnInitSuccess += () => _logger.Log(new LogEntry(x.Name, "Plugin successfully initialized", LogType.Information));
+
+            });
+
             dgwPlugins.DataSource = plugins;
         }
 
@@ -152,13 +164,7 @@
             // checked
             DataGridViewRow row = dgwPlugins.Rows[e.RowIndex];
             PluginBase plugin = (PluginBase) row.DataBoundItem;
-            plugin.Logger = _logger;
-            plugin.OnInitError += message =>
-                                  {
-                                      _logger.Log(new LogEntry(plugin.Name, message, LogType.Error));
-                                      cell.Value = cell.FalseValue;
-                                  };
-            plugin.OnInitSuccess += () => _logger.Log(new LogEntry(plugin.Name, "Plugin successfully initialized", LogType.Information));
+            cell.Value = cell.FalseValue // todo
             plugin.Initialize();
         }
 
