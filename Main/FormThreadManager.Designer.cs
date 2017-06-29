@@ -29,65 +29,53 @@
         private void InitializeComponent()
         {
             this.lblThreads = new System.Windows.Forms.Label();
-            this.lbStatus = new System.Windows.Forms.ListBox();
             this.lblRootDirectory = new System.Windows.Forms.Label();
             this.lblTimeStarted = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.btnStop = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.lbLog = new System.Windows.Forms.ListBox();
+            this.cbxInformation = new System.Windows.Forms.CheckBox();
+            this.cbxWarning = new System.Windows.Forms.CheckBox();
+            this.cbxError = new System.Windows.Forms.CheckBox();
+            this.pbRunning = new System.Windows.Forms.ProgressBar();
+            this.lblLastFile = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblThreads
             // 
             this.lblThreads.AutoSize = true;
-            this.lblThreads.Location = new System.Drawing.Point(12, 9);
+            this.lblThreads.Location = new System.Drawing.Point(6, 10);
+            this.lblThreads.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblThreads.Name = "lblThreads";
-            this.lblThreads.Size = new System.Drawing.Size(129, 25);
+            this.lblThreads.Size = new System.Drawing.Size(66, 13);
             this.lblThreads.TabIndex = 0;
             this.lblThreads.Text = "Threads: {0}";
-            // 
-            // lbStatus
-            // 
-            this.lbStatus.FormattingEnabled = true;
-            this.lbStatus.ItemHeight = 25;
-            this.lbStatus.Location = new System.Drawing.Point(17, 176);
-            this.lbStatus.Name = "lbStatus";
-            this.lbStatus.Size = new System.Drawing.Size(631, 379);
-            this.lbStatus.TabIndex = 2;
             // 
             // lblRootDirectory
             // 
             this.lblRootDirectory.AutoSize = true;
-            this.lblRootDirectory.Location = new System.Drawing.Point(12, 43);
+            this.lblRootDirectory.Location = new System.Drawing.Point(6, 28);
+            this.lblRootDirectory.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblRootDirectory.Name = "lblRootDirectory";
-            this.lblRootDirectory.Size = new System.Drawing.Size(187, 25);
+            this.lblRootDirectory.Size = new System.Drawing.Size(95, 13);
             this.lblRootDirectory.TabIndex = 3;
             this.lblRootDirectory.Text = "Root Directory: {0}";
             // 
             // lblTimeStarted
             // 
             this.lblTimeStarted.AutoSize = true;
-            this.lblTimeStarted.Location = new System.Drawing.Point(12, 81);
+            this.lblTimeStarted.Location = new System.Drawing.Point(6, 47);
+            this.lblTimeStarted.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTimeStarted.Name = "lblTimeStarted";
-            this.lblTimeStarted.Size = new System.Drawing.Size(172, 25);
+            this.lblTimeStarted.Size = new System.Drawing.Size(87, 13);
             this.lblTimeStarted.TabIndex = 4;
             this.lblTimeStarted.Text = "Time Started: {0}";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 142);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(73, 25);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Status";
-            // 
             // btnStop
             // 
-            this.btnStop.Location = new System.Drawing.Point(17, 593);
+            this.btnStop.Location = new System.Drawing.Point(9, 282);
+            this.btnStop.Margin = new System.Windows.Forms.Padding(2);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(631, 54);
+            this.btnStop.Size = new System.Drawing.Size(183, 28);
             this.btnStop.TabIndex = 6;
             this.btnStop.Text = "Stop";
             this.btnStop.UseVisualStyleBackColor = true;
@@ -96,39 +84,88 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(649, 142);
+            this.label1.Location = new System.Drawing.Point(6, 91);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 25);
+            this.label1.Size = new System.Drawing.Size(125, 13);
             this.label1.TabIndex = 8;
-            this.label1.Text = "Log";
+            this.label1.Text = "Log the following events:";
             // 
-            // lbLog
+            // cbxInformation
             // 
-            this.lbLog.FormattingEnabled = true;
-            this.lbLog.ItemHeight = 25;
-            this.lbLog.Location = new System.Drawing.Point(654, 176);
-            this.lbLog.Name = "lbLog";
-            this.lbLog.Size = new System.Drawing.Size(631, 379);
-            this.lbLog.TabIndex = 7;
+            this.cbxInformation.AutoSize = true;
+            this.cbxInformation.Location = new System.Drawing.Point(9, 112);
+            this.cbxInformation.Name = "cbxInformation";
+            this.cbxInformation.Size = new System.Drawing.Size(78, 17);
+            this.cbxInformation.TabIndex = 10;
+            this.cbxInformation.Text = "Information";
+            this.cbxInformation.UseVisualStyleBackColor = true;
+            this.cbxInformation.CheckedChanged += new System.EventHandler(this.cbxInformation_CheckedChanged);
+            // 
+            // cbxWarning
+            // 
+            this.cbxWarning.AutoSize = true;
+            this.cbxWarning.Checked = true;
+            this.cbxWarning.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbxWarning.Location = new System.Drawing.Point(9, 135);
+            this.cbxWarning.Name = "cbxWarning";
+            this.cbxWarning.Size = new System.Drawing.Size(66, 17);
+            this.cbxWarning.TabIndex = 11;
+            this.cbxWarning.Text = "Warning";
+            this.cbxWarning.UseVisualStyleBackColor = true;
+            this.cbxWarning.CheckedChanged += new System.EventHandler(this.cbxWarning_CheckedChanged);
+            // 
+            // cbxError
+            // 
+            this.cbxError.AutoSize = true;
+            this.cbxError.Checked = true;
+            this.cbxError.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbxError.Location = new System.Drawing.Point(9, 158);
+            this.cbxError.Name = "cbxError";
+            this.cbxError.Size = new System.Drawing.Size(48, 17);
+            this.cbxError.TabIndex = 12;
+            this.cbxError.Text = "Error";
+            this.cbxError.UseVisualStyleBackColor = true;
+            this.cbxError.CheckedChanged += new System.EventHandler(this.cbxError_CheckedChanged);
+            // 
+            // pbRunning
+            // 
+            this.pbRunning.Location = new System.Drawing.Point(9, 194);
+            this.pbRunning.Name = "pbRunning";
+            this.pbRunning.Size = new System.Drawing.Size(185, 17);
+            this.pbRunning.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.pbRunning.TabIndex = 13;
+            // 
+            // lblLastFile
+            // 
+            this.lblLastFile.Location = new System.Drawing.Point(8, 212);
+            this.lblLastFile.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblLastFile.Name = "lblLastFile";
+            this.lblLastFile.Size = new System.Drawing.Size(186, 55);
+            this.lblLastFile.TabIndex = 14;
+            this.lblLastFile.Text = "Last File: {0}";
             // 
             // FormThreadManager
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1298, 659);
+            this.ClientSize = new System.Drawing.Size(206, 321);
+            this.Controls.Add(this.lblLastFile);
+            this.Controls.Add(this.pbRunning);
+            this.Controls.Add(this.cbxError);
+            this.Controls.Add(this.cbxWarning);
+            this.Controls.Add(this.cbxInformation);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.lbLog);
             this.Controls.Add(this.btnStop);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.lblTimeStarted);
             this.Controls.Add(this.lblRootDirectory);
-            this.Controls.Add(this.lbStatus);
             this.Controls.Add(this.lblThreads);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "FormThreadManager";
             this.ShowIcon = false;
-            this.Text = "FormThreadManager";
+            this.Text = "Thread Manager";
             this.Load += new System.EventHandler(this.FormThreadManager_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -138,12 +175,14 @@
         #endregion
 
         private System.Windows.Forms.Label lblThreads;
-        private System.Windows.Forms.ListBox lbStatus;
         private System.Windows.Forms.Label lblRootDirectory;
         private System.Windows.Forms.Label lblTimeStarted;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListBox lbLog;
+        private System.Windows.Forms.CheckBox cbxInformation;
+        private System.Windows.Forms.CheckBox cbxWarning;
+        private System.Windows.Forms.CheckBox cbxError;
+        private System.Windows.Forms.ProgressBar pbRunning;
+        private System.Windows.Forms.Label lblLastFile;
     }
 }

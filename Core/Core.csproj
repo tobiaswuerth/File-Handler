@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6EBA61BB-BC37-41CD-916B-56AC055B6813}</ProjectGuid>
+    <ProjectGuid>{2D729303-C34F-4429-94FD-AA69B18FB7CC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ch.wuerth.tobias.filehandler.Plugin</RootNamespace>
-    <AssemblyName>ch.wuerth.tobias.filehandler.Plugin</AssemblyName>
+    <RootNamespace>ch.wuerth.tobias.filehandler.Core</RootNamespace>
+    <AssemblyName>ch.wuerth.tobias.filehandler.Core</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -34,14 +34,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PluginBase.cs" />
+    <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="Exceptions\UndefinedValueException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{2D729303-C34F-4429-94FD-AA69B18FB7CC}</Project>
-      <Name>Core</Name>
-    </ProjectReference>
+    <Compile Include="ValueObjects\LogEntry.cs" />
+    <Compile Include="Enums\LogType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

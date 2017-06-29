@@ -56,7 +56,7 @@
             this.label1.Location = new System.Drawing.Point(11, 9);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(266, 25);
+            this.label1.Size = new System.Drawing.Size(143, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "1. Choose root directory";
             // 
@@ -67,7 +67,7 @@
             this.txtDirectoryPath.Margin = new System.Windows.Forms.Padding(2);
             this.txtDirectoryPath.Name = "txtDirectoryPath";
             this.txtDirectoryPath.ReadOnly = true;
-            this.txtDirectoryPath.Size = new System.Drawing.Size(1072, 31);
+            this.txtDirectoryPath.Size = new System.Drawing.Size(904, 19);
             this.txtDirectoryPath.TabIndex = 1;
             // 
             // label2
@@ -77,7 +77,7 @@
             this.label2.Location = new System.Drawing.Point(11, 81);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(188, 25);
+            this.label2.Size = new System.Drawing.Size(102, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "2. Select plugins";
             // 
@@ -101,7 +101,7 @@
             this.dgwPlugins.Name = "dgwPlugins";
             this.dgwPlugins.RowTemplate.Height = 33;
             this.dgwPlugins.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgwPlugins.Size = new System.Drawing.Size(1275, 224);
+            this.dgwPlugins.Size = new System.Drawing.Size(983, 224);
             this.dgwPlugins.TabIndex = 4;
             this.dgwPlugins.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwPlugins_CellContentClick);
             this.dgwPlugins.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgwPlugins_CellFormatting);
@@ -153,7 +153,7 @@
             // btnStart
             // 
             this.btnStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStart.Location = new System.Drawing.Point(887, 453);
+            this.btnStart.Location = new System.Drawing.Point(594, 416);
             this.btnStart.Margin = new System.Windows.Forms.Padding(2);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(200, 30);
@@ -165,7 +165,7 @@
             // btnClose
             // 
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.Location = new System.Drawing.Point(1092, 453);
+            this.btnClose.Location = new System.Drawing.Point(799, 416);
             this.btnClose.Margin = new System.Windows.Forms.Padding(2);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(200, 30);
@@ -181,7 +181,7 @@
             this.label3.Location = new System.Drawing.Point(11, 344);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(120, 25);
+            this.label3.Size = new System.Drawing.Size(65, 13);
             this.label3.TabIndex = 8;
             this.label3.Text = "3. Options";
             // 
@@ -194,7 +194,7 @@
             this.cbxDirectoriesRecursively.Location = new System.Drawing.Point(16, 371);
             this.cbxDirectoriesRecursively.Margin = new System.Windows.Forms.Padding(2);
             this.cbxDirectoriesRecursively.Name = "cbxDirectoriesRecursively";
-            this.cbxDirectoriesRecursively.Size = new System.Drawing.Size(314, 29);
+            this.cbxDirectoriesRecursively.Size = new System.Drawing.Size(156, 17);
             this.cbxDirectoriesRecursively.TabIndex = 9;
             this.cbxDirectoriesRecursively.Text = "Crawl directories recursively";
             this.cbxDirectoriesRecursively.UseVisualStyleBackColor = true;
@@ -215,7 +215,7 @@
             0,
             0});
             this.nudThreads.Name = "nudThreads";
-            this.nudThreads.Size = new System.Drawing.Size(70, 31);
+            this.nudThreads.Size = new System.Drawing.Size(70, 19);
             this.nudThreads.TabIndex = 10;
             this.nudThreads.Value = new decimal(new int[] {
             10,
@@ -230,17 +230,17 @@
             this.label4.Location = new System.Drawing.Point(90, 406);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(91, 25);
+            this.label4.Size = new System.Drawing.Size(46, 13);
             this.label4.TabIndex = 11;
             this.label4.Text = "Threads";
             // 
             // btnChooseDirectory
             // 
             this.btnChooseDirectory.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChooseDirectory.Location = new System.Drawing.Point(1092, 36);
+            this.btnChooseDirectory.Location = new System.Drawing.Point(924, 36);
             this.btnChooseDirectory.Margin = new System.Windows.Forms.Padding(2);
             this.btnChooseDirectory.Name = "btnChooseDirectory";
-            this.btnChooseDirectory.Size = new System.Drawing.Size(200, 30);
+            this.btnChooseDirectory.Size = new System.Drawing.Size(75, 19);
             this.btnChooseDirectory.TabIndex = 12;
             this.btnChooseDirectory.Text = "...";
             this.btnChooseDirectory.UseVisualStyleBackColor = true;
@@ -248,9 +248,9 @@
             // 
             // FormWizard
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1303, 528);
+            this.ClientSize = new System.Drawing.Size(1008, 454);
             this.Controls.Add(this.btnChooseDirectory);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.nudThreads);

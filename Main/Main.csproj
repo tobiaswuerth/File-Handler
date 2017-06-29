@@ -48,7 +48,8 @@
     <Compile Include="FormWizard.Designer.cs">
       <DependentUpon>FormWizard.cs</DependentUpon>
     </Compile>
-    <Compile Include="LogEntry.cs" />
+    <Compile Include="Logger\AlertLogger.cs" />
+    <Compile Include="Logger\FileLogger.cs" />
     <Compile Include="PluginWorker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -57,6 +58,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormThreadManager.resx">
       <DependentUpon>FormThreadManager.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -89,6 +91,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{2D729303-C34F-4429-94FD-AA69B18FB7CC}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Plugin\Plugin.csproj">
       <Project>{6EBA61BB-BC37-41CD-916B-56AC055B6813}</Project>
       <Name>Plugin</Name>

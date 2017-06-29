@@ -8,9 +8,11 @@
     using System.Linq;
     using System.Reflection;
     using System.Windows.Forms;
-
+    using Core.Enums;
+    using Core.Interfaces;
+    using Core.ValueObjects;
+    using Logger;
     using Plugin;
-
     using Properties;
 
     #endregion
@@ -18,6 +20,7 @@
     public partial class FormWizard : Form
     {
         private const String PLUGIN_DIRECTORY = "plugins";
+        private readonly ILogger _logger = new AlertLogger();
 
         public FormWizard()
         {
@@ -71,12 +74,6 @@
             {
                 ShowWarning(Resources.hint_body_no_plugin_found, Resources.hint_head_no_plugin_found);
             }
-
-            // DEBUG
-            plugins.Add(new DebugPlugin());
-            plugins.Add(new DebugPlugin());
-            plugins.Add(new DebugPlugin());
-            
             dgwPlugins.DataSource = plugins;
         }
 
@@ -136,7 +133,7 @@
 
             Hide();
             new FormThreadManager(directory, selectedPlugins, Int32.Parse(nudThreads.Value.ToString()), cbxDirectoriesRecursively.Checked).ShowDialog();
-            Show();
+            Close();
         }
 
         private void dgwPlugins_CellMouseUp(Object sender, DataGridViewCellMouseEventArgs e)
@@ -155,32 +152,17 @@
             // checked
             DataGridViewRow row = dgwPlugins.Rows[e.RowIndex];
             PluginBase plugin = (PluginBase) row.DataBoundItem;
+            plugin.Logger = _logger;
+            plugin.OnInitError += message =>
+                                  {
+                                      _logger.Log(new LogEntry(plugin.Name, message, LogType.Error));
+                                      cell.Value = cell.FalseValue;
+                                  };
+            plugin.OnInitSuccess += () => _logger.Log(new LogEntry(plugin.Name, "Plugin successfully initialized", LogType.Information));
             plugin.Initialize();
         }
 
-        private class DebugPlugin : PluginBase
-        {
-            public DebugPlugin()
-            {
-                Name = $"Name - {Guid.NewGuid()}";
-                Description = "Description";
-                Extensions = new List<String>
-                             {
-                                 ".txt"
-                             };
-            }
-
-            public override void Initialize()
-            {
-                MessageBox.Show(null, "init", "init", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                base.Initialize();
-            }
-
-            public override void Action(String path) { }
-        }
-
-        private void dgwPlugins_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgwPlugins_CellContentClick(Object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == ColumnEnablePlugin.Index && e.RowIndex != -1)
             {
@@ -188,7 +170,7 @@
             }
         }
 
-        private void dgwPlugins_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void dgwPlugins_CellFormatting(Object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.ColumnIndex == ColumnExtensions.Index && e.RowIndex != -1 && null != e.Value)
             {

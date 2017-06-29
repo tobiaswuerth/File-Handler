@@ -3,10 +3,14 @@
     #region usings
 
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Threading;
+    using Core.Enums;
+    using Core.Interfaces;
+    using Core.ValueObjects;
 
     #endregion
 
@@ -15,47 +19,53 @@
         private const Int32 BUFFER_THRESHOLD_SLEEP = 250; //ms
         private const Int32 BUFFER_EMPTY_SLEEP = 250; //ms
         private const Int32 BUFFER_FILL_THRESHOLD = 50;
-        private readonly Queue<String> _fileBuffer = new Queue<String>();
+        private readonly ILogger _logger;
         private readonly String _rootDirectory;
+        private volatile ConcurrentQueue<String> _fileBuffer = new ConcurrentQueue<String>();
         private volatile Boolean _isRunning;
         private volatile Boolean _recursiveCrawling;
-
         private Thread _thread;
 
-        public Boolean IsRunning { get => _isRunning; private set => _isRunning = value; }
+        public Boolean IsRunning
+        {
+            get
+            {
+                return _isRunning;
+            }
+            private set
+            {
+                _isRunning = value;
+            }
+        }
 
-        public Crawler(String rootDirectory, Boolean recursiveCrawling)
+        public Crawler(String rootDirectory, Boolean recursiveCrawling, ILogger logger)
         {
             _rootDirectory = rootDirectory;
             _recursiveCrawling = recursiveCrawling;
+            _logger = logger;
         }
 
         public String GetNextFile()
         {
-            while (true)
+            while (IsRunning)
             {
-                Boolean doSleep;
-                lock (_fileBuffer)
+                String nextFile;
+                while (!_fileBuffer.TryDequeue(out nextFile))
                 {
-                    doSleep = !_fileBuffer.Any();
+                    Thread.Sleep(50);
                 }
-                if (doSleep)
+
+                if (null == nextFile)
                 {
                     Thread.Sleep(BUFFER_EMPTY_SLEEP);
                 }
                 else
                 {
-                    break;
+                    return nextFile;
                 }
             }
 
-            String nextFile;
-            lock (_fileBuffer)
-            {
-                nextFile = _fileBuffer.Dequeue();
-            }
-
-            return nextFile;
+            return null;
         }
 
         public void Stop()
@@ -75,9 +85,7 @@
         private void Run()
         {
             IsRunning = true;
-
             Crawl(_rootDirectory);
-
             IsRunning = false;
         }
 
@@ -87,13 +95,21 @@
             {
                 return;
             }
-
             if (!Directory.Exists(directory))
             {
                 return;
             }
 
-            List<String> files = Directory.GetFiles(directory).ToList();
+            List<String> files = null;
+            try
+            {
+                files = Directory.GetFiles(directory).ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.Log(new LogEntry("File Crawler", $"An exception occurred: {ex.Message}", LogType.Error));
+                return;
+            }
 
             do
             {
@@ -119,12 +135,10 @@
             {
                 files.ForEach(x => _fileBuffer.Enqueue(x));
             }
-
             if (!_recursiveCrawling)
             {
                 return;
             }
-
             if (!IsRunning)
             {
                 return;
