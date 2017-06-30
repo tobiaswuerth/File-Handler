@@ -8,9 +8,12 @@
     using System.Linq;
     using System.Threading;
     using System.Windows.Forms;
+
     using Core.Enums;
     using Core.ValueObjects;
+
     using Logger;
+
     using Plugin;
 
     #endregion
@@ -26,32 +29,34 @@
         private volatile Crawler _crawler;
         private volatile String _lastFile = String.Empty;
         private volatile List<PluginBase> _plugins;
+        private Boolean _uiThreadRunning = true;
         private Thread _uiUpdateThread;
 
         public FormThreadManager(String rootDirectory, List<PluginBase> plugins, Int32 numberOfThreads, Boolean recursive)
         {
             InitializeComponent();
+
             _rootDirectory = rootDirectory;
             _plugins = plugins;
             _numberOfThreads = numberOfThreads;
             _recursive = recursive;
+
             _plugins.ForEach(x =>
                              {
                                  x.Logger = _logger;
-                                 x.OnStart += () => _logger.Log(new LogEntry(x.Name, "Plugin started", LogType.Information));
-                                 x.OnFinish += () => _logger.Log(new LogEntry(x.Name, "Plugin finished", LogType.Information));
-                                 x.OnError += message => _logger.Log(new LogEntry(x.Name, message, LogType.Error));
-                                 x.OnWarning += message => _logger.Log(new LogEntry(x.Name, message, LogType.Warning));
-                                 x.OnSuccess += () => _logger.Log(new LogEntry(x.Name, "Plugin ran successfully", LogType.Information));
+                                 x.OnStart += () => _logger.Log(new LogEntry($"{x.Name}[{x.Guid}]", "Plugin started", LogType.Information));
+                                 x.OnFinish += () => _logger.Log(new LogEntry($"{x.Name}[{x.Guid}]", "Plugin finished", LogType.Information));
+                                 x.OnError += message => _logger.Log(new LogEntry($"{x.Name}[{x.Guid}]", message, LogType.Error));
+                                 x.OnWarning += message => _logger.Log(new LogEntry($"{x.Name}[{x.Guid}]", message, LogType.Warning));
                              });
-            lblRootDirectory.Text = $"Root Directory: {rootDirectory}";
+
+            lblRootDirectory.Text = $"Root directory: {rootDirectory}";
             lblThreads.Text = $"Threads: {numberOfThreads}";
-            lblTimeStarted.Text = $"Started at: {DateTime.Now.ToLongTimeString()}";
         }
 
         private (String, PluginBase) GetNextFile()
         {
-            if (!_crawler.IsRunning)
+            if (_crawler.IsDone)
             {
                 return (null, null);
             }
@@ -66,6 +71,7 @@
         private void btnStop_Click(Object sender, EventArgs e)
         {
             _crawler.Stop();
+            _uiThreadRunning = false;
             _threads.ForEach(x => x.Stop());
             btnStop.Text = "Stopping...";
             btnStop.Enabled = false;
@@ -82,15 +88,22 @@
         {
             // init crawling thread
             _crawler = new Crawler(_rootDirectory, _recursive, _logger);
-            _crawler.Start();
+            _crawler.OnDone += () =>
+                               {
+                                   btnStop.Invoke((MethodInvoker) delegate
+                                                                  {
+                                                                      btnStop_Click(btnStop, EventArgs.Empty);
+                                                                      lblTimeStopped.Text = $"Time stopped: {DateTime.Now:T}";
+                                                                      btnStop.Enabled = false;
+                                                                      btnStart.Enabled = true;
+                                                                  });
+                               };
 
             // init file handling numberOfThreads
             for (Int32 i = 0; i < _numberOfThreads; i++)
             {
                 _threads.Add(new PluginWorker(GetNextFile, _logger));
             }
-
-            _threads.ForEach(x => x.Start());
 
             // init ui thread
             _uiUpdateThread = new Thread(UiUpdate);
@@ -99,11 +112,11 @@
 
         private void UiUpdate()
         {
-            while (_crawler.IsRunning)
+            while (_uiThreadRunning)
             {
                 lblLastFile.Invoke((MethodInvoker) delegate
                                                    {
-                                                       lblLastFile.Text = _lastFile;
+                                                       lblLastFile.Text = $"Last file: {_lastFile}";
                                                    });
                 Thread.Sleep(UI_UPDATE_INTERVAL);
             }
@@ -122,6 +135,27 @@
         private void cbxInformation_CheckedChanged(Object sender, EventArgs e)
         {
             _logger.LogInformations = cbxInformation.Checked;
+        }
+
+        private void FormThreadManager_FormClosing(Object sender, FormClosingEventArgs e)
+        {
+            btnStop_Click(btnStop, EventArgs.Empty);
+            _logger.Dispose();
+        }
+
+        private void btnStart_Click(Object sender, EventArgs e)
+        {
+            btnStart.Enabled = false;
+
+            lblTimeStarted.Text = $"Time started: {DateTime.Now.ToLongTimeString()}";
+            lblTimeStopped.Text = "Time stopped: -";
+            lblLastFile.Text = "Last file: -";
+            pbRunning.Style = ProgressBarStyle.Marquee;
+
+            _crawler.Start();
+            _threads.ForEach(x => x.Start());
+
+            btnStop.Enabled = true;
         }
     }
 }

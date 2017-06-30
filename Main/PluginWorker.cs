@@ -5,9 +5,11 @@
     using System;
     using System.IO;
     using System.Threading;
+
     using Core.Enums;
     using Core.Interfaces;
     using Core.ValueObjects;
+
     using Plugin;
 
     #endregion
@@ -18,21 +20,11 @@
 
         private readonly ILogger _logger;
         private readonly GetNextFile _methodGetNextFile;
-        private readonly Guid Guid = Guid.NewGuid();
+        public readonly Guid Guid = Guid.NewGuid();
         private volatile Boolean _isRunning;
         private Thread _thread;
 
-        public Boolean IsRunning
-        {
-            get
-            {
-                return _isRunning;
-            }
-            private set
-            {
-                _isRunning = value;
-            }
-        }
+        public Boolean IsRunning { get => _isRunning; private set => _isRunning = value; }
 
         public PluginWorker(GetNextFile methodGetNextFile, ILogger logger)
         {
@@ -50,6 +42,11 @@
 
         public void Start()
         {
+            if (IsRunning)
+            {
+                return;
+            }
+
             _thread = new Thread(Run);
             _thread.Start();
         }
@@ -62,12 +59,6 @@
                 (String, PluginBase) nextTask = _methodGetNextFile.Invoke();
                 String file = nextTask.Item1;
                 PluginBase plugin = nextTask.Item2;
-                if (null == plugin)
-                {
-                    // no plugin found
-                    _logger.Log(new LogEntry($"Plugin Worker ({Guid})", $"No plugin provided for filetype '{Path.GetFileName(file)}'", LogType.Information));
-                    continue;
-                }
 
                 if (null == file)
                 {
@@ -76,8 +67,17 @@
                     break;
                 }
 
+                if (null == plugin)
+                {
+                    // no plugin found
+                    _logger.Log(new LogEntry($"Plugin Worker ({Guid})", $"No plugin provided for filetype '{Path.GetFileName(file)}'", LogType.Information));
+                    continue;
+                }
+
                 plugin.Action(file);
             }
+
+            IsRunning = false;
         }
     }
 }

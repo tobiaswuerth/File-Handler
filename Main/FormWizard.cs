@@ -8,11 +8,15 @@
     using System.Linq;
     using System.Reflection;
     using System.Windows.Forms;
+
     using Core.Enums;
     using Core.Interfaces;
     using Core.ValueObjects;
+
     using Logger;
+
     using Plugin;
+
     using Properties;
 
     #endregion
@@ -44,11 +48,6 @@
             ShowMessageBox(body, head, MessageBoxIcon.Asterisk);
         }
 
-        private void ShowNotice(String body, String head)
-        {
-            ShowMessageBox(body, head, MessageBoxIcon.Information);
-        }
-
         private void ShowMessageBox(String body, String head, MessageBoxIcon ico)
         {
             MessageBox.Show(this, body, head, MessageBoxButtons.OK, ico);
@@ -63,7 +62,7 @@
             }
             String[] files = Directory.GetFiles(PLUGIN_DIRECTORY);
             List<PluginBase> plugins = new List<PluginBase>();
-            foreach (String file in files.Where(x => x.EndsWith(".dll")))
+            foreach (String file in files.Where(x => x.ToLower().Trim().EndsWith(".dll")))
             {
                 Assembly pluginAssembly = Assembly.LoadFrom(file);
                 List<Type> ts = pluginAssembly.GetTypes().Where(x => typeof(PluginBase).IsAssignableFrom(x)).ToList();
@@ -76,15 +75,14 @@
             }
 
             plugins.ForEach(x =>
-            {
-                x.Logger = _logger;
-                x.OnInitError += message =>
-                                      {
-                                          _logger.Log(new LogEntry(x.Name, message, LogType.Error));
-                                      };
-                x.OnInitSuccess += () => _logger.Log(new LogEntry(x.Name, "Plugin successfully initialized", LogType.Information));
-
-            });
+                            {
+                                x.Logger = _logger;
+                                x.OnInitError += message =>
+                                                 {
+                                                     _logger.Log(new LogEntry(x.Name, message, LogType.Error));
+                                                 };
+                                x.OnInitSuccess += () => _logger.Log(new LogEntry(x.Name, "Plugin successfully initialized", LogType.Information));
+                            });
 
             dgwPlugins.DataSource = plugins;
         }
@@ -108,7 +106,7 @@
             }
         }
 
-        private void btnStart_Click(Object sender, EventArgs e)
+        private void btnDone_Click(Object sender, EventArgs e)
         {
             String directory = txtDirectoryPath.Text.Trim();
             if (String.IsNullOrEmpty(directory))
@@ -145,7 +143,7 @@
 
             Hide();
             new FormThreadManager(directory, selectedPlugins, Int32.Parse(nudThreads.Value.ToString()), cbxDirectoriesRecursively.Checked).ShowDialog();
-            Close();
+            Show();
         }
 
         private void dgwPlugins_CellMouseUp(Object sender, DataGridViewCellMouseEventArgs e)
@@ -158,14 +156,17 @@
             DataGridViewCheckBoxCell cell = (DataGridViewCheckBoxCell) dgwPlugins[ColumnEnablePlugin.Index, e.RowIndex];
             if (cell.Value != cell.TrueValue)
             {
+                // checkbox got unchecked -> do not trigger init event
                 return;
             }
 
-            // checked
             DataGridViewRow row = dgwPlugins.Rows[e.RowIndex];
             PluginBase plugin = (PluginBase) row.DataBoundItem;
-            cell.Value = cell.FalseValue // todo
-            plugin.Initialize();
+            Boolean initialized = plugin.Initialize();
+            if (!initialized)
+            {
+                cell.Value = cell.FalseValue; // uncheck checkbox
+            }
         }
 
         private void dgwPlugins_CellContentClick(Object sender, DataGridViewCellEventArgs e)
@@ -178,12 +179,14 @@
 
         private void dgwPlugins_CellFormatting(Object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == ColumnExtensions.Index && e.RowIndex != -1 && null != e.Value)
+            if (e.ColumnIndex != ColumnExtensions.Index || e.RowIndex == -1 || null == e.Value)
             {
-                List<String> extensions = e.Value as List<String> ?? new List<String>();
-                e.Value = extensions.Any() ? extensions.Aggregate((a, b) => $"*.{a}, *.{b}") : "";
-                e.FormattingApplied = true;
+                return;
             }
+
+            List<String> extensions = e.Value as List<String> ?? new List<String>();
+            e.Value = extensions.Any() ? extensions.Aggregate((a, b) => $"*.{a}, *.{b}") : "";
+            e.FormattingApplied = true;
         }
     }
 }

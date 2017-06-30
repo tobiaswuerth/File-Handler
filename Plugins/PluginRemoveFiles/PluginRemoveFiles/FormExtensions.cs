@@ -1,18 +1,24 @@
 ﻿namespace ch.wuerth.tobias.filehandler.PluginRemoveFiles
 {
+    #region usings
+
     using System;
     using System.Windows.Forms;
+
     using Enums;
+
     using ValueObjects;
+
+    #endregion
 
     public partial class FormExtensions : Form
     {
-        private readonly DataBridge _bridge;
+        private readonly DataBridge _db;
 
-        public FormExtensions(DataBridge bridge)
+        public FormExtensions(DataBridge db)
         {
             InitializeComponent();
-            _bridge = bridge;
+            _db = db;
         }
 
         private void btnCancel_Click(Object sender, EventArgs e)
@@ -25,8 +31,8 @@
                 }
             }
 
-            _bridge.Status = Status.Canceled;
-            _bridge.Extensions.Clear();
+            _db.Status = Status.Canceled;
+            _db.Extensions.Clear();
             Close();
         }
 
@@ -57,14 +63,21 @@
 
         private void btnSaveAndClose_Click(Object sender, EventArgs e)
         {
-            _bridge.Extensions.Clear();
+            _db.Extensions.Clear();
             foreach (String i in lbEntries.Items)
             {
-                _bridge.Extensions.Add(i);
+                _db.Extensions.Add(i);
             }
 
-            _bridge.Status = Status.Saved;
+            _db.Status = Status.Saved;
             Close();
+        }
+
+        private void FormExtensions_Load(Object sender, EventArgs e)
+        {
+            ActiveControl = txtAdd;
+
+            _db.Extensions.ForEach(x => lbEntries.Items.Add(x));
         }
     }
 }

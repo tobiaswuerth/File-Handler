@@ -1,10 +1,15 @@
 ﻿namespace ch.wuerth.tobias.filehandler.Main.Logger
 {
+    #region usings
+
     using System.Collections.Generic;
     using System.Windows.Forms;
+
     using Core.Enums;
     using Core.Interfaces;
     using Core.ValueObjects;
+
+    #endregion
 
     public class AlertLogger : ILogger
     {

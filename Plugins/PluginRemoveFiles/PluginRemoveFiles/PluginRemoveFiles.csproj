@@ -30,22 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ch.wuerth.tobias.filehandler.Core">
-      <HintPath>..\..\..\Plugin\bin\Release\ch.wuerth.tobias.filehandler.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="ch.wuerth.tobias.filehandler.Plugin">
-      <HintPath>..\..\..\Plugin\bin\Release\ch.wuerth.tobias.filehandler.Plugin.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\Status.cs" />
@@ -64,6 +52,15 @@
       <DependentUpon>FormExtensions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\Core.csproj">
+      <Project>{2d729303-c34f-4429-94fd-aa69b18fb7cc}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Plugin\Plugin.csproj">
+      <Project>{6EBA61BB-BC37-41CD-916B-56AC055B6813}</Project>
+      <Name>Plugin</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

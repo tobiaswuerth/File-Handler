@@ -1,13 +1,18 @@
 ﻿namespace ch.wuerth.tobias.filehandler.Main.Logger
 {
+    #region usings
+
     using System;
     using System.Collections.Generic;
     using System.IO;
+
     using Core.Enums;
     using Core.Interfaces;
     using Core.ValueObjects;
 
-    public class FileLogger : ILogger
+    #endregion
+
+    public class FileLogger : ILogger, IDisposable
     {
         private const String LOGS_FOLDER = "logs";
 
@@ -40,41 +45,11 @@
         private readonly String _path = $"{LOGS_FOLDER}/log_{DateTime.Today:yy-MM-dd}";
         private volatile TextWriter _sw;
 
-        public Boolean LogErrors
-        {
-            get
-            {
-                return _logLogTypes[LogType.Error];
-            }
-            set
-            {
-                _logLogTypes[LogType.Error] = value;
-            }
-        }
+        public Boolean LogErrors { get => _logLogTypes[LogType.Error]; set => _logLogTypes[LogType.Error] = value; }
 
-        public Boolean LogWarnings
-        {
-            get
-            {
-                return _logLogTypes[LogType.Warning];
-            }
-            set
-            {
-                _logLogTypes[LogType.Warning] = value;
-            }
-        }
+        public Boolean LogWarnings { get => _logLogTypes[LogType.Warning]; set => _logLogTypes[LogType.Warning] = value; }
 
-        public Boolean LogInformations
-        {
-            get
-            {
-                return _logLogTypes[LogType.Information];
-            }
-            set
-            {
-                _logLogTypes[LogType.Information] = value;
-            }
-        }
+        public Boolean LogInformations { get => _logLogTypes[LogType.Information]; set => _logLogTypes[LogType.Information] = value; }
 
         public FileLogger()
         {
@@ -82,8 +57,13 @@
             {
                 Directory.CreateDirectory(LOGS_FOLDER);
             }
-            _sw = new StreamWriter(_path);
+            _sw = new StreamWriter(_path, true);
             _sw = TextWriter.Synchronized(_sw);
+        }
+
+        public void Dispose()
+        {
+            _sw?.Dispose();
         }
 
         public void Log(LogEntry entry)

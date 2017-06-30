@@ -38,7 +38,7 @@
             this.ColumnExtensions = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnVersionMajor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnVersionMinor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnStart = new System.Windows.Forms.Button();
+            this.btnDone = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.cbxDirectoriesRecursively = new System.Windows.Forms.CheckBox();
@@ -56,7 +56,7 @@
             this.label1.Location = new System.Drawing.Point(11, 9);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(143, 13);
+            this.label1.Size = new System.Drawing.Size(266, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "1. Choose root directory";
             // 
@@ -67,7 +67,7 @@
             this.txtDirectoryPath.Margin = new System.Windows.Forms.Padding(2);
             this.txtDirectoryPath.Name = "txtDirectoryPath";
             this.txtDirectoryPath.ReadOnly = true;
-            this.txtDirectoryPath.Size = new System.Drawing.Size(904, 19);
+            this.txtDirectoryPath.Size = new System.Drawing.Size(904, 31);
             this.txtDirectoryPath.TabIndex = 1;
             // 
             // label2
@@ -77,7 +77,7 @@
             this.label2.Location = new System.Drawing.Point(11, 81);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(102, 13);
+            this.label2.Size = new System.Drawing.Size(188, 25);
             this.label2.TabIndex = 3;
             this.label2.Text = "2. Select plugins";
             // 
@@ -150,17 +150,17 @@
             this.ColumnVersionMinor.Name = "ColumnVersionMinor";
             this.ColumnVersionMinor.ReadOnly = true;
             // 
-            // btnStart
+            // btnDone
             // 
-            this.btnStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStart.Location = new System.Drawing.Point(594, 416);
-            this.btnStart.Margin = new System.Windows.Forms.Padding(2);
-            this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(200, 30);
-            this.btnStart.TabIndex = 6;
-            this.btnStart.Text = "Start";
-            this.btnStart.UseVisualStyleBackColor = true;
-            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            this.btnDone.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDone.Location = new System.Drawing.Point(594, 416);
+            this.btnDone.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDone.Name = "btnDone";
+            this.btnDone.Size = new System.Drawing.Size(200, 30);
+            this.btnDone.TabIndex = 6;
+            this.btnDone.Text = "Done";
+            this.btnDone.UseVisualStyleBackColor = true;
+            this.btnDone.Click += new System.EventHandler(this.btnDone_Click);
             // 
             // btnClose
             // 
@@ -181,7 +181,7 @@
             this.label3.Location = new System.Drawing.Point(11, 344);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 13);
+            this.label3.Size = new System.Drawing.Size(120, 25);
             this.label3.TabIndex = 8;
             this.label3.Text = "3. Options";
             // 
@@ -194,7 +194,7 @@
             this.cbxDirectoriesRecursively.Location = new System.Drawing.Point(16, 371);
             this.cbxDirectoriesRecursively.Margin = new System.Windows.Forms.Padding(2);
             this.cbxDirectoriesRecursively.Name = "cbxDirectoriesRecursively";
-            this.cbxDirectoriesRecursively.Size = new System.Drawing.Size(156, 17);
+            this.cbxDirectoriesRecursively.Size = new System.Drawing.Size(314, 29);
             this.cbxDirectoriesRecursively.TabIndex = 9;
             this.cbxDirectoriesRecursively.Text = "Crawl directories recursively";
             this.cbxDirectoriesRecursively.UseVisualStyleBackColor = true;
@@ -215,7 +215,7 @@
             0,
             0});
             this.nudThreads.Name = "nudThreads";
-            this.nudThreads.Size = new System.Drawing.Size(70, 19);
+            this.nudThreads.Size = new System.Drawing.Size(70, 31);
             this.nudThreads.TabIndex = 10;
             this.nudThreads.Value = new decimal(new int[] {
             10,
@@ -230,7 +230,7 @@
             this.label4.Location = new System.Drawing.Point(90, 406);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(46, 13);
+            this.label4.Size = new System.Drawing.Size(91, 25);
             this.label4.TabIndex = 11;
             this.label4.Text = "Threads";
             // 
@@ -248,7 +248,7 @@
             // 
             // FormWizard
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 454);
             this.Controls.Add(this.btnChooseDirectory);
@@ -257,7 +257,7 @@
             this.Controls.Add(this.cbxDirectoriesRecursively);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.btnStart);
+            this.Controls.Add(this.btnDone);
             this.Controls.Add(this.dgwPlugins);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtDirectoryPath);
@@ -281,7 +281,7 @@
         private System.Windows.Forms.TextBox txtDirectoryPath;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dgwPlugins;
-        private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Button btnDone;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox cbxDirectoriesRecursively;

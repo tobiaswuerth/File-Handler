@@ -8,6 +8,7 @@
     using System.IO;
     using System.Linq;
     using System.Threading;
+
     using Core.Enums;
     using Core.Interfaces;
     using Core.ValueObjects;
@@ -16,25 +17,34 @@
 
     internal class Crawler
     {
+        public delegate void OnDoneEvent();
+
         private const Int32 BUFFER_THRESHOLD_SLEEP = 250; //ms
         private const Int32 BUFFER_EMPTY_SLEEP = 250; //ms
         private const Int32 BUFFER_FILL_THRESHOLD = 50;
+        private const Int32 TRY_DEQUEUE_FAILED_SLEEP_DELAY = 25; // ms
         private readonly ILogger _logger;
         private readonly String _rootDirectory;
         private volatile ConcurrentQueue<String> _fileBuffer = new ConcurrentQueue<String>();
+        private Boolean _isDone;
         private volatile Boolean _isRunning;
         private volatile Boolean _recursiveCrawling;
         private Thread _thread;
 
-        public Boolean IsRunning
+        public OnDoneEvent OnDone { get; set; }
+
+        public Boolean IsRunning { get => _isRunning; private set => _isRunning = value; }
+
+        public Boolean IsDone
         {
-            get
-            {
-                return _isRunning;
-            }
+            get => _isDone;
             private set
             {
-                _isRunning = value;
+                _isDone = value;
+                if (IsDone)
+                {
+                    OnDone?.Invoke();
+                }
             }
         }
 
@@ -47,16 +57,22 @@
 
         public String GetNextFile()
         {
-            while (IsRunning)
+            while (!IsDone)
             {
                 String nextFile;
-                while (!_fileBuffer.TryDequeue(out nextFile))
+                while (!_fileBuffer.TryDequeue(out nextFile) && !(!_fileBuffer.Any() && !IsRunning))
                 {
-                    Thread.Sleep(50);
+                    Thread.Sleep(TRY_DEQUEUE_FAILED_SLEEP_DELAY);
                 }
 
                 if (null == nextFile)
                 {
+                    if (!IsRunning)
+                    {
+                        IsDone = true;
+                        break;
+                    }
+
                     Thread.Sleep(BUFFER_EMPTY_SLEEP);
                 }
                 else
@@ -78,6 +94,11 @@
 
         public void Start()
         {
+            if (IsRunning)
+            {
+                return;
+            }
+
             _thread = new Thread(Run);
             _thread.Start();
         }
@@ -85,6 +106,7 @@
         private void Run()
         {
             IsRunning = true;
+            IsDone = false;
             Crawl(_rootDirectory);
             IsRunning = false;
         }

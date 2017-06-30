@@ -4,6 +4,7 @@
 
     using System;
     using System.Collections.Generic;
+
     using Core.Exceptions;
     using Core.Interfaces;
     using Core.ValueObjects;
@@ -22,8 +23,6 @@
 
         public delegate void OnStartEvent();
 
-        public delegate void OnSuccessEvent();
-
         public delegate void OnWarningEvent(String message);
 
         public readonly Guid Guid = Guid.NewGuid();
@@ -32,113 +31,31 @@
         private ILogger _logger;
         private String _name;
 
-        public OnErrorEvent OnError
-        {
-            get;
-            set;
-        }
+        public OnErrorEvent OnError { get; set; }
 
-        public OnFinishEvent OnFinish
-        {
-            get;
-            set;
-        }
+        public OnFinishEvent OnFinish { get; set; }
 
-        public OnStartEvent OnStart
-        {
-            get;
-            set;
-        }
+        public OnStartEvent OnStart { get; set; }
 
-        public OnSuccessEvent OnSuccess
-        {
-            get;
-            set;
-        }
+        public OnWarningEvent OnWarning { get; set; }
 
-        public OnWarningEvent OnWarning
-        {
-            get;
-            set;
-        }
+        public OnInitSuccessEvent OnInitSuccess { get; set; }
 
-        public OnInitSuccessEvent OnInitSuccess
-        {
-            get;
-            set;
-        }
+        public OnInitErrorEvent OnInitError { get; set; }
 
-        public OnInitErrorEvent OnInitError
-        {
-            get;
-            set;
-        }
+        public String Name { get => _name ?? throw new UndefinedValueException(); protected set => _name = value; }
 
-        public String Name
-        {
-            get
-            {
-                return _name ?? throw new UndefinedValueException();
-            }
-            protected set
-            {
-                _name = value;
-            }
-        }
+        public Int32 VersionMajor { get; protected set; }
 
-        public Int32 VersionMajor
-        {
-            get;
-            protected set;
-        }
+        public Int32 VersionMinor { get; protected set; }
 
-        public Int32 VersionMinor
-        {
-            get;
-            protected set;
-        }
+        public ILogger Logger { get => _logger ?? throw new UndefinedValueException(); set => _logger = value; }
 
-        public ILogger Logger
-        {
-            get
-            {
-                return _logger ?? throw new UndefinedValueException();
-            }
-            set
-            {
-                _logger = value;
-            }
-        }
+        public String Description { get => _description ?? throw new UndefinedValueException(); protected set => _description = value; }
 
-        public String Description
-        {
-            get
-            {
-                return _description ?? throw new UndefinedValueException();
-            }
-            protected set
-            {
-                _description = value;
-            }
-        }
+        public List<String> Extensions { get => _extensions ?? throw new UndefinedValueException(); protected set => _extensions = value; }
 
-        public List<String> Extensions
-        {
-            get
-            {
-                return _extensions ?? throw new UndefinedValueException();
-            }
-            protected set
-            {
-                _extensions = value;
-            }
-        }
-
-        public Boolean IsInitialized
-        {
-            get;
-            protected set;
-        }
+        public Boolean IsInitialized { get; protected set; }
 
         protected void Log(LogEntry entry)
         {
@@ -160,11 +77,6 @@
             OnStart?.Invoke();
         }
 
-        protected void Success()
-        {
-            OnSuccess?.Invoke();
-        }
-
         protected void Warning(String message)
         {
             OnWarning?.Invoke(message);
@@ -180,10 +92,11 @@
             OnInitError?.Invoke(message);
         }
 
-        public virtual void Initialize()
+        public virtual Boolean Initialize()
         {
             IsInitialized = true;
             InitSuccess();
+            return IsInitialized;
         }
 
         public abstract void Action(String path);
