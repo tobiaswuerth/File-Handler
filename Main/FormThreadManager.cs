@@ -21,6 +21,7 @@
     public partial class FormThreadManager : Form
     {
         private const Int32 UI_UPDATE_INTERVAL = 100; // ms
+        private const Int32 CRAWL_DONE_WAIT_THREADS_END = 500; // ms
         private readonly FileLogger _logger = new FileLogger();
         private readonly Int32 _numberOfThreads;
         private readonly Boolean _recursive;
@@ -90,6 +91,12 @@
             _crawler = new Crawler(_rootDirectory, _recursive, _logger);
             _crawler.OnDone += () =>
                                {
+                                   // wait for every worker to be done
+                                   while (_threads.Any(x => x.IsWorking))
+                                   {
+                                       Thread.Sleep(CRAWL_DONE_WAIT_THREADS_END);
+                                   }
+
                                    btnStop.Invoke((MethodInvoker) delegate
                                                                   {
                                                                       btnStop_Click(btnStop, EventArgs.Empty);

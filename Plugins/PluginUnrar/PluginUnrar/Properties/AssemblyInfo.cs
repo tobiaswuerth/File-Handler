@@ -1,18 +1,15 @@
-﻿#region usings
-
-using System.Reflection;
+﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-
-#endregion
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PluginUnzip")]
+[assembly: AssemblyTitle("PluginUnrar")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("PluginUnzip")]
+[assembly: AssemblyProduct("PluginUnrar")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -23,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("fa2aa55b-491f-416e-8708-70a219e6e0fb")]
+[assembly: Guid("3ff3c7eb-7e78-45cd-a1db-4ef81acb43fd")]
 
 // Version information for an assembly consists of the following four values:
 //

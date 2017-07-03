@@ -23,6 +23,7 @@
         public readonly Guid Guid = Guid.NewGuid();
         private volatile Boolean _isRunning;
         private Thread _thread;
+        public Boolean IsWorking { get; private set; }
 
         public Boolean IsRunning { get => _isRunning; private set => _isRunning = value; }
 
@@ -74,7 +75,16 @@
                     continue;
                 }
 
-                plugin.Action(file);
+                try
+                {
+                    IsWorking = true;
+                    plugin.Action(file);
+                    IsWorking = false;
+                }
+                catch (Exception ex)
+                {
+                    _logger.Log(new LogEntry($"Plugin Worker ({Guid})", ex.Message, LogType.Error));
+                }
             }
 
             IsRunning = false;

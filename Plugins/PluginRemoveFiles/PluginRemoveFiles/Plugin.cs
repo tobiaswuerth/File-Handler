@@ -63,9 +63,9 @@
 
             try
             {
-                Logger.Log(new LogEntry($"{Name}[{Guid}]", $"Trying to delete the file '{path}'...", LogType.Information));
+                Log(new LogEntry($"{Name}[{Guid}]", $"Trying to delete the file '{path}'...", LogType.Information));
                 File.Delete(path);
-                Logger.Log(new LogEntry($"{Name}[{Guid}]", $"Deleted the file '{path}'", LogType.Information));
+                Log(new LogEntry($"{Name}[{Guid}]", $"Deleted the file '{path}'", LogType.Information));
                 Finish();
             }
             catch (Exception ex)
