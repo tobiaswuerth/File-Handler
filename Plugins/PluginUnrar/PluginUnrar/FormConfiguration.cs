@@ -76,6 +76,11 @@
             {
                 MessageBox.Show(this, "An empty password will be treatet as no password", "Hint", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            if (pass.Contains("\""))
+            {
+                MessageBox.Show(this, "The given password must not contain '\"'.", "Invalid Password", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             lbPasswords.Items.Add(pass);
             txtPassword.Text = String.Empty;
             txtPassword.Focus();

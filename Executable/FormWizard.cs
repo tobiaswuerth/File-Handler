@@ -138,7 +138,14 @@
             }
 
             Hide();
-            new FormThreadManager(directory, selectedPlugins, Int32.Parse(nudThreads.Value.ToString()), cbxDirectoriesRecursively.Checked).ShowDialog();
+            try
+            {
+                new FormThreadManager(directory, selectedPlugins, Int32.Parse(nudThreads.Value.ToString()), cbxDirectoriesRecursively.Checked).ShowDialog();
+            }
+            catch (Exception x)
+            {
+                _logger.Log(new LogEntry("Thread Manager", $"{x.Message}\n{x.StackTrace}", LogType.Error));
+            }
             Show();
         }
 

@@ -6,7 +6,6 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
-    using System.Linq;
     using ch.wuerth.tobias.filehandler.Core.Enums;
     using ch.wuerth.tobias.filehandler.Core.ValueObjects;
     using ch.wuerth.tobias.filehandler.Plugin;
@@ -18,7 +17,6 @@
     public class Plugin : PluginBase
     {
         private readonly DataBridge _configuration = new DataBridge();
-        private readonly String _invalidNameChars;
 
         public Plugin()
         {
@@ -30,7 +28,6 @@
                          };
             VersionMajor = 1; // Last changed 2017-07-03 T 0515
             VersionMinor = 1; // Last changed 2017-07-03 T 0515
-            _invalidNameChars = new String(Path.GetInvalidFileNameChars()) + new String(Path.GetInvalidPathChars());
         }
 
         public override Boolean Initialize()
@@ -52,43 +49,58 @@
             try
             {
                 String dir = Path.GetDirectoryName(path);
-                Process p = new Process
-                            {
-                                StartInfo =
-                                {
-                                    UseShellExecute = false,
-                                    RedirectStandardOutput = true,
-                                    RedirectStandardError = true,
-                                    WorkingDirectory = _configuration.WinrarDirectory,
-                                    FileName = _configuration.WinrarExe,
-                                    CreateNoWindow = true,
-                                    Arguments = $"e -ac -ad -ai -cfg- -ep -ibck -kb -or p- -r \"{path}\" \"{dir}\"" 
-                                }
-                            };
-
-                StreamReader spo = p.StandardOutput;
-                StreamReader seo = p.StandardError;
-
-                Log(new LogEntry($"{Name}", $"Starting extraction process for file '{path}'...", LogType.Information));
-                p.Start();
-                Log(new LogEntry($"{Name}", $"Waiting for the process for file '{path}' to finish...", LogType.Information));
-                p.WaitForExit();
-                Log(new LogEntry($"{Name}", $"Process for file '{path}' has finished", LogType.Information));
-
-                String line;
-                using (spo)
+                String args = "e -ac -ai -c- -cfg- -dh -ep -or -r -u";
+                if (_configuration.CreateSubdirectory.Value)
                 {
-                    while ((line = spo.ReadLine()) != null)
-                    {
-                        Log(new LogEntry($"{Name} UnRAR output", line, LogType.Information));
-                    }
+                    args += " -ad";
                 }
-                using (seo)
+                List<Process> processes = new List<Process>();
+                if (_configuration.UsePasswords.Value)
                 {
-                    while ((line = seo.ReadLine()) != null)
+                    _configuration.Passwords.ForEach(x => processes.Add(BuildProcess(args, path, dir, x)));
+                }
+                else
+                {
+                    processes.Add(BuildProcess(args, path, dir));
+                }
+                foreach (Process x in processes)
+                {
+                    try
                     {
-                        Log(new LogEntry($"{Name} UnRAR output", line, LogType.Error));
-                        Error(line);
+                        Int32 errors = 0;
+                        x.ErrorDataReceived += (o, e) =>
+                                               {
+                                                   String data = e?.Data?.Trim();
+                                                   if (!String.IsNullOrEmpty(data))
+                                                   {
+                                                       errors++;
+                                                   }
+                                               };
+                        Log(new LogEntry($"{Name}", $"Starting extraction process for file '{path}'...", LogType.Information));
+                        x.Start();
+                        x.BeginErrorReadLine();
+                        x.BeginOutputReadLine();
+                        x.WaitForExit();
+                        Log(new LogEntry($"{Name}", $"Process for file '{path}' has finished", LogType.Information));
+                        if (!errors.Equals(0))
+                        {
+                            continue;
+                        }
+
+                        Log(new LogEntry($"{Name}", $"Zero errors found, assuming a successful extraction for file '{path}'.", LogType.Information));
+                        if (!_configuration.DeleteArchiveAfterExtraction.Value)
+                        {
+                            continue;
+                        }
+
+                        Log(new LogEntry($"{Name}", $"Trying to delete archive '{path}'...", LogType.Information));
+                        File.Delete(path);
+                        Log(new LogEntry($"{Name}", $"Successfully deleted archive '{path}'.", LogType.Information));
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        Error(ex.Message);
                     }
                 }
             }
@@ -97,6 +109,42 @@
                 Error(ex.Message);
             }
             Finish();
+        }
+
+        private Process BuildProcess(String args, String path, String dir, String password = null)
+        {
+            Process p = new Process
+                        {
+                            EnableRaisingEvents = true,
+                            StartInfo =
+                            {
+                                UseShellExecute = false,
+                                RedirectStandardOutput = true,
+                                RedirectStandardError = true,
+                                WorkingDirectory = _configuration.WinrarDirectory,
+                                FileName = _configuration.WinrarExe,
+                                CreateNoWindow = true,
+                                Arguments = String.IsNullOrEmpty(password) ? $"{args} -p- \"{path}\" * \"{dir}\"" : $"{args} -p{password} \"{path}\" * \"{dir}\""
+                            }
+                        };
+            p.ErrorDataReceived += (o, e) =>
+                                   {
+                                       String message = e?.Data?.Trim();
+                                       if (!String.IsNullOrEmpty(message))
+                                       {
+                                           Log(new LogEntry($"{Name} output", message, LogType.Error));
+                                           Error(message);
+                                       }
+                                   };
+            p.OutputDataReceived += (o, e) =>
+                                    {
+                                        String message = e?.Data?.Trim();
+                                        if (!String.IsNullOrEmpty(message))
+                                        {
+                                            Log(new LogEntry($"{Name} output", message, LogType.Information));
+                                        }
+                                    };
+            return p;
         }
     }
 }

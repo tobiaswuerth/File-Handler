@@ -62,26 +62,25 @@
             IsRunning = true;
             while (IsRunning)
             {
-                (String, PluginBase) nextTask = _methodGetNextFile.Invoke();
-                String file = nextTask.Item1;
-                PluginBase plugin = nextTask.Item2;
-
-                if (null == file)
-                {
-                    // no tasks left
-                    Stop();
-                    break;
-                }
-
-                if (null == plugin)
-                {
-                    // no plugin found
-                    _logger.Log(new LogEntry($"Thread[{_thread.ManagedThreadId}]", $"No plugin provided for filetype '{Path.GetFileName(file)}'", LogType.Information));
-                    continue;
-                }
-
                 try
                 {
+                    (String, PluginBase) nextTask = _methodGetNextFile.Invoke();
+                    String file = nextTask.Item1;
+                    PluginBase plugin = nextTask.Item2;
+
+                    if (null == file)
+                    {
+                        // no tasks left
+                        Stop();
+                        break;
+                    }
+
+                    if (null == plugin)
+                    {
+                        // no plugin found
+                        _logger.Log(new LogEntry($"Thread[{_thread.ManagedThreadId}]", $"No plugin provided for filetype '{Path.GetFileName(file)}'", LogType.Information));
+                        continue;
+                    }
                     IsWorking = true;
                     plugin.Action(file);
                     IsWorking = false;

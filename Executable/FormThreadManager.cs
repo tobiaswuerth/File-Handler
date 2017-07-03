@@ -19,7 +19,7 @@
     {
         private const Int32 UI_UPDATE_INTERVAL = 100; // ms
         private const Int32 CRAWL_DONE_WAIT_THREADS_END = 500; // ms
-        private readonly FileLogger _logger = new FileLogger();
+        private volatile FileLogger _logger = new FileLogger();
         private readonly Int32 _numberOfThreads;
         private readonly Boolean _recursive;
         private readonly String _rootDirectory;
@@ -30,6 +30,10 @@
         private Boolean _uiThreadRunning = true;
         private Thread _uiUpdateThread;
 
+        ~FormThreadManager()
+        {
+            _logger.Dispose();
+        }
         public FormThreadManager(String rootDirectory, List<PluginBase> plugins, Int32 numberOfThreads, Boolean recursive)
         {
             InitializeComponent();
@@ -69,7 +73,6 @@
         private void btnStop_Click(Object sender, EventArgs e)
         {
             _crawler.Stop();
-            _uiThreadRunning = false;
             _threads.ForEach(x => x.Stop());
             btnStop.Text = "Stopping...";
             btnStop.Enabled = false;
@@ -80,6 +83,7 @@
 
             btnStop.Text = "Stopped";
             pbRunning.Style = ProgressBarStyle.Continuous;
+            btnStart.Enabled = true;
         }
 
         private void FormThreadManager_Load(Object sender, EventArgs e)
@@ -116,18 +120,25 @@
 
         private void UiUpdate()
         {
-            while (_uiThreadRunning)
+            try
             {
-                lblLastFile.Invoke((MethodInvoker) delegate
-                                                   {
-                                                       lblLastFile.Text = $"Last file: {_lastFile}";
-                                                   });
-                lbxThreads.Invoke((MethodInvoker)delegate
-                                                  {
-                                                      lbxThreads.Items.Clear();
-                                                      _threads.ForEach(x => lbxThreads.Items.Add($"Thread[{x.ThreadId}]: {x.IsRunning}"));
-                                                  });
-                Thread.Sleep(UI_UPDATE_INTERVAL);
+                while (_uiThreadRunning)
+                {
+                    lblLastFile.Invoke((MethodInvoker)delegate
+                                                      {
+                                                          lblLastFile.Text = $"Last file: {_lastFile}";
+                                                      });
+                    lbxThreads.Invoke((MethodInvoker)delegate
+                                                      {
+                                                          lbxThreads.Items.Clear();
+                                                          _threads.ForEach(x => lbxThreads.Items.Add($"Thread[{x.ThreadId}]: {x.IsRunning}"));
+                                                      });
+                    Thread.Sleep(UI_UPDATE_INTERVAL);
+                }
+            }
+            catch (Exception)
+            {
+                // ignored
             }
         }
 
@@ -149,6 +160,7 @@
         private void FormThreadManager_FormClosing(Object sender, FormClosingEventArgs e)
         {
             btnStop_Click(btnStop, EventArgs.Empty);
+            _uiThreadRunning = false;
             _logger.Dispose();
         }
 

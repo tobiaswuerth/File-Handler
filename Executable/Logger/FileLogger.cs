@@ -71,8 +71,9 @@
             {
                 return;
             }
-
+            
             _sw.WriteLine($"{GetLogTypePrefixByType(entry.Type)}\t{entry.Timestamp:T}\t{entry.Sender}\t{entry.Data}");
+            _sw.Flush();
         }
 
         private static String GetLogTypePrefixByType(LogType type)
