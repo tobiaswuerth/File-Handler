@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginUnzip", "PluginUnzip\PluginUnzip.csproj", "{FA2AA55B-491F-416E-8708-70A219E6E0FB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "..\..\Core\Core.csproj", "{2D729303-C34F-4429-94FD-AA69B18FB7CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin", "..\..\Plugin\Plugin.csproj", "{6EBA61BB-BC37-41CD-916B-56AC055B6813}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginBase", "..\..\PluginBase\PluginBase.csproj", "{6EBA61BB-BC37-41CD-916B-56AC055B6813}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

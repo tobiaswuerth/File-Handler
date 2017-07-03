@@ -1,4 +1,4 @@
-﻿namespace ch.wuerth.tobias.filehandler.Main
+﻿namespace ch.wuerth.tobias.filehandler.Executable
 {
     #region usings
 
@@ -8,15 +8,11 @@
     using System.Linq;
     using System.Reflection;
     using System.Windows.Forms;
-
     using Core.Enums;
     using Core.Interfaces;
     using Core.ValueObjects;
-
     using Logger;
-
     using Plugin;
-
     using Properties;
 
     #endregion

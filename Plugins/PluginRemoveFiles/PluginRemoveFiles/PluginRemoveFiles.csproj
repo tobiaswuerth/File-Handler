@@ -57,9 +57,9 @@
       <Project>{2d729303-c34f-4429-94fd-aa69b18fb7cc}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Plugin\Plugin.csproj">
+    <ProjectReference Include="..\..\..\PluginBase\PluginBase.csproj">
       <Project>{6EBA61BB-BC37-41CD-916B-56AC055B6813}</Project>
-      <Name>Plugin</Name>
+      <Name>PluginBase</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

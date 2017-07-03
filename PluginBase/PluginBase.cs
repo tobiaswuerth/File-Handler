@@ -24,12 +24,16 @@
         public delegate void OnStartEvent();
 
         public delegate void OnWarningEvent(String message);
-
-        public readonly Guid Guid = Guid.NewGuid();
+        
         private String _description;
         private List<String> _extensions;
         private ILogger _logger;
         private String _name;
+
+        public Guid Guid
+        {
+            get;
+        } = Guid.NewGuid();
 
         public OnErrorEvent OnError { get; set; }
 

@@ -1,15 +1,13 @@
-﻿namespace ch.wuerth.tobias.filehandler.Main
+﻿namespace ch.wuerth.tobias.filehandler.Executable
 {
     #region usings
 
     using System;
     using System.IO;
     using System.Threading;
-
     using Core.Enums;
     using Core.Interfaces;
     using Core.ValueObjects;
-
     using Plugin;
 
     #endregion
@@ -20,7 +18,6 @@
 
         private readonly ILogger _logger;
         private readonly GetNextFile _methodGetNextFile;
-        public readonly Guid Guid = Guid.NewGuid();
         private volatile Boolean _isRunning;
         private Thread _thread;
         public Boolean IsWorking { get; private set; }
@@ -31,6 +28,14 @@
         {
             _methodGetNextFile = methodGetNextFile ?? throw new ArgumentNullException();
             _logger = logger;
+        }
+
+        public Int32 ThreadId
+        {
+            get
+            {
+                return _thread?.ManagedThreadId ?? -1;
+            }
         }
 
         public void Stop()
@@ -71,7 +76,7 @@
                 if (null == plugin)
                 {
                     // no plugin found
-                    _logger.Log(new LogEntry($"Plugin Worker ({Guid})", $"No plugin provided for filetype '{Path.GetFileName(file)}'", LogType.Information));
+                    _logger.Log(new LogEntry($"Thread[{_thread.ManagedThreadId}]", $"No plugin provided for filetype '{Path.GetFileName(file)}'", LogType.Information));
                     continue;
                 }
 
@@ -83,7 +88,7 @@
                 }
                 catch (Exception ex)
                 {
-                    _logger.Log(new LogEntry($"Plugin Worker ({Guid})", ex.Message, LogType.Error));
+                    _logger.Log(new LogEntry($"Thread[{_thread.ManagedThreadId}]", ex.Message, LogType.Error));
                 }
             }
 

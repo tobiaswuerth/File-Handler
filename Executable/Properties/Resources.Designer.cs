@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ch.wuerth.tobias.filehandler.Main.Properties {
+namespace ch.wuerth.tobias.filehandler.Executable.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace ch.wuerth.tobias.filehandler.Main.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ch.wuerth.tobias.filehandler.Main.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ch.wuerth.tobias.filehandler.Executable.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

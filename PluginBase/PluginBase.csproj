@@ -7,8 +7,8 @@
     <ProjectGuid>{6EBA61BB-BC37-41CD-916B-56AC055B6813}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ch.wuerth.tobias.filehandler.PluginUnrar</RootNamespace>
-    <AssemblyName>ch.wuerth.tobias.filehandler.PluginUnrar</AssemblyName>
+    <RootNamespace>ch.wuerth.tobias.filehandler.PluginBase</RootNamespace>
+    <AssemblyName>ch.wuerth.tobias.filehandler.PluginBase</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

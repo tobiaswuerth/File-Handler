@@ -1,4 +1,4 @@
-﻿namespace ch.wuerth.tobias.filehandler.Main
+﻿namespace ch.wuerth.tobias.filehandler.Executable
 {
     #region usings
 
@@ -8,7 +8,6 @@
     using System.IO;
     using System.Linq;
     using System.Threading;
-
     using Core.Enums;
     using Core.Interfaces;
     using Core.ValueObjects;
@@ -19,10 +18,10 @@
     {
         public delegate void OnDoneEvent();
 
-        private const Int32 BUFFER_THRESHOLD_SLEEP = 250; //ms
-        private const Int32 BUFFER_EMPTY_SLEEP = 250; //ms
-        private const Int32 BUFFER_FILL_THRESHOLD = 50;
-        private const Int32 TRY_DEQUEUE_FAILED_SLEEP_DELAY = 25; // ms
+        private const Int32 BUFFER_THRESHOLD_SLEEP = 25; //ms
+        private const Int32 BUFFER_EMPTY_SLEEP = 1; //ms
+        private const Int32 BUFFER_FILL_THRESHOLD = 1000;
+        private const Int32 TRY_DEQUEUE_FAILED_SLEEP_DELAY = 1; // ms
         private readonly ILogger _logger;
         private readonly String _rootDirectory;
         private volatile ConcurrentQueue<String> _fileBuffer = new ConcurrentQueue<String>();

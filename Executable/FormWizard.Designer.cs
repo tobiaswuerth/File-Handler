@@ -1,4 +1,4 @@
-﻿namespace ch.wuerth.tobias.filehandler.Main
+﻿namespace ch.wuerth.tobias.filehandler.Executable
 {
     partial class FormWizard
     {

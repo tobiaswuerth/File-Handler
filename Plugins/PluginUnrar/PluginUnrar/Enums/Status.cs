@@ -1,4 +1,4 @@
-﻿namespace ch.wuerth.tobias.filehandler.PluginUnzip.Enum
+﻿namespace PluginUnrar.Enums
 {
     public enum Status
     {

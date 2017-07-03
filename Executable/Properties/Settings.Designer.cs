@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ch.wuerth.tobias.filehandler.Main.Properties {
+namespace ch.wuerth.tobias.filehandler.Executable.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

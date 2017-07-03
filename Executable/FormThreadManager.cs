@@ -1,4 +1,4 @@
-﻿namespace ch.wuerth.tobias.filehandler.Main
+﻿namespace ch.wuerth.tobias.filehandler.Executable
 {
     #region usings
 
@@ -8,12 +8,9 @@
     using System.Linq;
     using System.Threading;
     using System.Windows.Forms;
-
     using Core.Enums;
     using Core.ValueObjects;
-
     using Logger;
-
     using Plugin;
 
     #endregion
@@ -45,10 +42,10 @@
             _plugins.ForEach(x =>
                              {
                                  x.Logger = _logger;
-                                 x.OnStart += () => _logger.Log(new LogEntry($"{x.Name}[{x.Guid}]", "Plugin started", LogType.Information));
-                                 x.OnFinish += () => _logger.Log(new LogEntry($"{x.Name}[{x.Guid}]", "Plugin finished", LogType.Information));
-                                 x.OnError += message => _logger.Log(new LogEntry($"{x.Name}[{x.Guid}]", message, LogType.Error));
-                                 x.OnWarning += message => _logger.Log(new LogEntry($"{x.Name}[{x.Guid}]", message, LogType.Warning));
+                                 x.OnStart += () => _logger.Log(new LogEntry($"{x.Name}", "Plugin started", LogType.Information));
+                                 x.OnFinish += () => _logger.Log(new LogEntry($"{x.Name}", "Plugin finished", LogType.Information));
+                                 x.OnError += message => _logger.Log(new LogEntry($"{x.Name}", message, LogType.Error));
+                                 x.OnWarning += message => _logger.Log(new LogEntry($"{x.Name}", message, LogType.Warning));
                              });
 
             lblRootDirectory.Text = $"Root directory: {rootDirectory}";
@@ -125,6 +122,11 @@
                                                    {
                                                        lblLastFile.Text = $"Last file: {_lastFile}";
                                                    });
+                lbxThreads.Invoke((MethodInvoker)delegate
+                                                  {
+                                                      lbxThreads.Items.Clear();
+                                                      _threads.ForEach(x => lbxThreads.Items.Add($"Thread[{x.ThreadId}]: {x.IsRunning}"));
+                                                  });
                 Thread.Sleep(UI_UPDATE_INTERVAL);
             }
         }

@@ -1,11 +1,10 @@
-﻿namespace ch.wuerth.tobias.filehandler.Main.Logger
+﻿namespace ch.wuerth.tobias.filehandler.Executable.Logger
 {
     #region usings
 
     using System;
     using System.Collections.Generic;
     using System.IO;
-
     using Core.Enums;
     using Core.Interfaces;
     using Core.ValueObjects;

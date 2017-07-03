@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{38202524-6AF2-4D27-9D63-FF196CF28589}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ch.wuerth.tobias.filehandler.Main</RootNamespace>
-    <AssemblyName>ch.wuerth.tobias.filehandler.Main</AssemblyName>
+    <RootNamespace>ch.wuerth.tobias.filehandler.Executable</RootNamespace>
+    <AssemblyName>ch.wuerth.tobias.filehandler.Executable</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -95,9 +95,9 @@
       <Project>{2D729303-C34F-4429-94FD-AA69B18FB7CC}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Plugin\Plugin.csproj">
+    <ProjectReference Include="..\PluginBase\PluginBase.csproj">
       <Project>{6EBA61BB-BC37-41CD-916B-56AC055B6813}</Project>
-      <Name>Plugin</Name>
+      <Name>PluginBase</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

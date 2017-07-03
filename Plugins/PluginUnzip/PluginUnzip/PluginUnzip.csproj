@@ -53,9 +53,9 @@
       <Project>{2D729303-C34F-4429-94FD-AA69B18FB7CC}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Plugin\Plugin.csproj">
-      <Project>{6eba61bb-bc37-41cd-916b-56ac055b6813}</Project>
-      <Name>Plugin</Name>
+    <ProjectReference Include="..\..\..\PluginBase\PluginBase.csproj">
+      <Project>{6EBA61BB-BC37-41CD-916B-56AC055B6813}</Project>
+      <Name>PluginBase</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

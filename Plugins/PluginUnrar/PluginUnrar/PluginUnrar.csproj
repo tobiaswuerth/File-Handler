@@ -7,8 +7,8 @@
     <ProjectGuid>{3FF3C7EB-7E78-45CD-A1DB-4EF81ACB43FD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PluginUnrar</RootNamespace>
-    <AssemblyName>PluginUnrar</AssemblyName>
+    <RootNamespace>ch.wuerth.tobias.filehandler.PluginUnrar</RootNamespace>
+    <AssemblyName>ch.wuerth.tobias.filehandler.PluginUnrar</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SharpCompress, Version=0.17.1.0, Culture=neutral, PublicKeyToken=afb0a02973931d96, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpCompress.0.17.1\lib\net45\SharpCompress.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -61,18 +58,15 @@
       <Project>{2d729303-c34f-4429-94fd-aa69b18fb7cc}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Plugin\Plugin.csproj">
-      <Project>{6eba61bb-bc37-41cd-916b-56ac055b6813}</Project>
-      <Name>Plugin</Name>
+    <ProjectReference Include="..\..\..\PluginBase\PluginBase.csproj">
+      <Project>{6EBA61BB-BC37-41CD-916B-56AC055B6813}</Project>
+      <Name>PluginBase</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FormConfiguration.resx">
       <DependentUpon>FormConfiguration.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
