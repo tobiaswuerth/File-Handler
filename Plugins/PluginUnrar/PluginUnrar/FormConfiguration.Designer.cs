@@ -48,10 +48,10 @@
             // 
             // btnOpenWinrarDirectory
             // 
-            this.btnOpenWinrarDirectory.Location = new System.Drawing.Point(214, 25);
-            this.btnOpenWinrarDirectory.Margin = new System.Windows.Forms.Padding(2);
+            this.btnOpenWinrarDirectory.Location = new System.Drawing.Point(428, 48);
+            this.btnOpenWinrarDirectory.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnOpenWinrarDirectory.Name = "btnOpenWinrarDirectory";
-            this.btnOpenWinrarDirectory.Size = new System.Drawing.Size(62, 20);
+            this.btnOpenWinrarDirectory.Size = new System.Drawing.Size(124, 38);
             this.btnOpenWinrarDirectory.TabIndex = 0;
             this.btnOpenWinrarDirectory.Text = "...";
             this.btnOpenWinrarDirectory.UseVisualStyleBackColor = true;
@@ -59,20 +59,20 @@
             // 
             // txtWinrarDirectory
             // 
-            this.txtWinrarDirectory.Location = new System.Drawing.Point(8, 25);
-            this.txtWinrarDirectory.Margin = new System.Windows.Forms.Padding(2);
+            this.txtWinrarDirectory.Location = new System.Drawing.Point(16, 48);
+            this.txtWinrarDirectory.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtWinrarDirectory.Name = "txtWinrarDirectory";
             this.txtWinrarDirectory.ReadOnly = true;
-            this.txtWinrarDirectory.Size = new System.Drawing.Size(202, 20);
+            this.txtWinrarDirectory.Size = new System.Drawing.Size(400, 31);
             this.txtWinrarDirectory.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 5);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(12, 10);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(181, 13);
+            this.label1.Size = new System.Drawing.Size(365, 25);
             this.label1.TabIndex = 2;
             this.label1.Text = "Path to WinRAR installation directory";
             // 
@@ -80,10 +80,11 @@
             // 
             this.lbPasswords.Enabled = false;
             this.lbPasswords.FormattingEnabled = true;
-            this.lbPasswords.Location = new System.Drawing.Point(8, 157);
-            this.lbPasswords.Margin = new System.Windows.Forms.Padding(2);
+            this.lbPasswords.ItemHeight = 25;
+            this.lbPasswords.Location = new System.Drawing.Point(16, 302);
+            this.lbPasswords.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lbPasswords.Name = "lbPasswords";
-            this.lbPasswords.Size = new System.Drawing.Size(202, 69);
+            this.lbPasswords.Size = new System.Drawing.Size(400, 129);
             this.lbPasswords.TabIndex = 3;
             // 
             // cbxCreateSubdir
@@ -91,10 +92,10 @@
             this.cbxCreateSubdir.AutoSize = true;
             this.cbxCreateSubdir.Checked = true;
             this.cbxCreateSubdir.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbxCreateSubdir.Location = new System.Drawing.Point(8, 71);
-            this.cbxCreateSubdir.Margin = new System.Windows.Forms.Padding(2);
+            this.cbxCreateSubdir.Location = new System.Drawing.Point(16, 137);
+            this.cbxCreateSubdir.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbxCreateSubdir.Name = "cbxCreateSubdir";
-            this.cbxCreateSubdir.Size = new System.Drawing.Size(197, 17);
+            this.cbxCreateSubdir.Size = new System.Drawing.Size(392, 29);
             this.cbxCreateSubdir.TabIndex = 4;
             this.cbxCreateSubdir.Text = "Create subdirectory for each archive";
             this.cbxCreateSubdir.UseVisualStyleBackColor = true;
@@ -102,10 +103,10 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 56);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(12, 108);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 13);
+            this.label2.Size = new System.Drawing.Size(90, 25);
             this.label2.TabIndex = 5;
             this.label2.Text = "Settings";
             // 
@@ -114,10 +115,10 @@
             this.cbxDeleteArchive.AutoSize = true;
             this.cbxDeleteArchive.Checked = true;
             this.cbxDeleteArchive.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbxDeleteArchive.Location = new System.Drawing.Point(8, 89);
-            this.cbxDeleteArchive.Margin = new System.Windows.Forms.Padding(2);
+            this.cbxDeleteArchive.Location = new System.Drawing.Point(16, 171);
+            this.cbxDeleteArchive.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbxDeleteArchive.Name = "cbxDeleteArchive";
-            this.cbxDeleteArchive.Size = new System.Drawing.Size(221, 17);
+            this.cbxDeleteArchive.Size = new System.Drawing.Size(439, 29);
             this.cbxDeleteArchive.TabIndex = 6;
             this.cbxDeleteArchive.Text = "Delete archive after successful extraction";
             this.cbxDeleteArchive.UseVisualStyleBackColor = true;
@@ -125,10 +126,10 @@
             // cbxUsePassword
             // 
             this.cbxUsePassword.AutoSize = true;
-            this.cbxUsePassword.Location = new System.Drawing.Point(8, 107);
-            this.cbxUsePassword.Margin = new System.Windows.Forms.Padding(2);
+            this.cbxUsePassword.Location = new System.Drawing.Point(16, 206);
+            this.cbxUsePassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbxUsePassword.Name = "cbxUsePassword";
-            this.cbxUsePassword.Size = new System.Drawing.Size(98, 17);
+            this.cbxUsePassword.Size = new System.Drawing.Size(191, 29);
             this.cbxUsePassword.TabIndex = 7;
             this.cbxUsePassword.Text = "Use passwords";
             this.cbxUsePassword.UseVisualStyleBackColor = true;
@@ -137,29 +138,29 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 142);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(12, 273);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 13);
+            this.label3.Size = new System.Drawing.Size(123, 25);
             this.label3.TabIndex = 8;
             this.label3.Text = "Passwords:";
             // 
             // txtPassword
             // 
             this.txtPassword.Enabled = false;
-            this.txtPassword.Location = new System.Drawing.Point(8, 229);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(2);
+            this.txtPassword.Location = new System.Drawing.Point(16, 440);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(202, 20);
+            this.txtPassword.Size = new System.Drawing.Size(400, 31);
             this.txtPassword.TabIndex = 10;
             // 
             // btnAddPassword
             // 
             this.btnAddPassword.Enabled = false;
-            this.btnAddPassword.Location = new System.Drawing.Point(214, 229);
-            this.btnAddPassword.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAddPassword.Location = new System.Drawing.Point(428, 440);
+            this.btnAddPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAddPassword.Name = "btnAddPassword";
-            this.btnAddPassword.Size = new System.Drawing.Size(62, 20);
+            this.btnAddPassword.Size = new System.Drawing.Size(124, 38);
             this.btnAddPassword.TabIndex = 9;
             this.btnAddPassword.Text = "Add";
             this.btnAddPassword.UseVisualStyleBackColor = true;
@@ -168,10 +169,10 @@
             // btnRemovePassword
             // 
             this.btnRemovePassword.Enabled = false;
-            this.btnRemovePassword.Location = new System.Drawing.Point(214, 157);
-            this.btnRemovePassword.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRemovePassword.Location = new System.Drawing.Point(428, 302);
+            this.btnRemovePassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnRemovePassword.Name = "btnRemovePassword";
-            this.btnRemovePassword.Size = new System.Drawing.Size(62, 20);
+            this.btnRemovePassword.Size = new System.Drawing.Size(124, 38);
             this.btnRemovePassword.TabIndex = 11;
             this.btnRemovePassword.Text = "Remove";
             this.btnRemovePassword.UseVisualStyleBackColor = true;
@@ -179,10 +180,10 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(8, 283);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSave.Location = new System.Drawing.Point(16, 544);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(202, 20);
+            this.btnSave.Size = new System.Drawing.Size(404, 38);
             this.btnSave.TabIndex = 12;
             this.btnSave.Text = "Save and Close";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -191,10 +192,10 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(214, 283);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
+            this.btnCancel.Location = new System.Drawing.Point(428, 544);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(62, 20);
+            this.btnCancel.Size = new System.Drawing.Size(124, 38);
             this.btnCancel.TabIndex = 13;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -203,10 +204,10 @@
             // btnImport
             // 
             this.btnImport.Enabled = false;
-            this.btnImport.Location = new System.Drawing.Point(214, 205);
-            this.btnImport.Margin = new System.Windows.Forms.Padding(2);
+            this.btnImport.Location = new System.Drawing.Point(428, 394);
+            this.btnImport.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(62, 20);
+            this.btnImport.Size = new System.Drawing.Size(124, 38);
             this.btnImport.TabIndex = 14;
             this.btnImport.Text = "Import...";
             this.btnImport.UseVisualStyleBackColor = true;
@@ -215,10 +216,10 @@
             // btnClear
             // 
             this.btnClear.Enabled = false;
-            this.btnClear.Location = new System.Drawing.Point(214, 181);
-            this.btnClear.Margin = new System.Windows.Forms.Padding(2);
+            this.btnClear.Location = new System.Drawing.Point(428, 348);
+            this.btnClear.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(62, 20);
+            this.btnClear.Size = new System.Drawing.Size(124, 38);
             this.btnClear.TabIndex = 15;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
@@ -227,10 +228,10 @@
             // FormConfiguration
             // 
             this.AcceptButton = this.btnSave;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(281, 310);
+            this.ClientSize = new System.Drawing.Size(577, 601);
             this.ControlBox = false;
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnImport);
@@ -248,13 +249,13 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtWinrarDirectory);
             this.Controls.Add(this.btnOpenWinrarDirectory);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormConfiguration";
             this.ShowIcon = false;
             this.Text = "UnRar Plugin Configuration";
+            this.Load += new System.EventHandler(this.FormConfiguration_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

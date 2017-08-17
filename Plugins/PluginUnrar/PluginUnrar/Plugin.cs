@@ -6,10 +6,14 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
+    using System.Text.RegularExpressions;
+
     using ch.wuerth.tobias.filehandler.Core.Enums;
     using ch.wuerth.tobias.filehandler.Core.ValueObjects;
     using ch.wuerth.tobias.filehandler.Plugin;
+
     using Enums;
+
     using ValueObjects;
 
     #endregion
@@ -48,59 +52,62 @@
             Start();
             try
             {
-                String dir = Path.GetDirectoryName(path);
-                String args = "e -ac -ai -c- -cfg- -dh -ep -or -r -u";
-                if (_configuration.CreateSubdirectory.Value)
+                if (VerifyName(path))
                 {
-                    args += " -ad";
-                }
-                List<Process> processes = new List<Process>();
-                if (_configuration.UsePasswords.Value)
-                {
-                    _configuration.Passwords.ForEach(x => processes.Add(BuildProcess(args, path, dir, x)));
-                }
-                else
-                {
-                    processes.Add(BuildProcess(args, path, dir));
-                }
-                foreach (Process x in processes)
-                {
-                    try
+                    String dir = Path.GetDirectoryName(path);
+                    String args = "e -ac -ai -c- -cfg- -dh -ep -or -r -u";
+                    if (_configuration.CreateSubdirectory.Value)
                     {
-                        Int32 errors = 0;
-                        x.ErrorDataReceived += (o, e) =>
-                                               {
-                                                   String data = e?.Data?.Trim();
-                                                   if (!String.IsNullOrEmpty(data))
-                                                   {
-                                                       errors++;
-                                                   }
-                                               };
-                        Log(new LogEntry($"{Name}", $"Starting extraction process for file '{path}'...", LogType.Information));
-                        x.Start();
-                        x.BeginErrorReadLine();
-                        x.BeginOutputReadLine();
-                        x.WaitForExit();
-                        Log(new LogEntry($"{Name}", $"Process for file '{path}' has finished", LogType.Information));
-                        if (!errors.Equals(0))
-                        {
-                            continue;
-                        }
-
-                        Log(new LogEntry($"{Name}", $"Zero errors found, assuming a successful extraction for file '{path}'.", LogType.Information));
-                        if (!_configuration.DeleteArchiveAfterExtraction.Value)
-                        {
-                            continue;
-                        }
-
-                        Log(new LogEntry($"{Name}", $"Trying to delete archive '{path}'...", LogType.Information));
-                        File.Delete(path);
-                        Log(new LogEntry($"{Name}", $"Successfully deleted archive '{path}'.", LogType.Information));
-                        break;
+                        args += " -ad";
                     }
-                    catch (Exception ex)
+                    List<Process> processes = new List<Process>();
+                    if (_configuration.UsePasswords.Value)
                     {
-                        Error(ex.Message);
+                        _configuration.Passwords.ForEach(x => processes.Add(BuildProcess(args, path, dir, x)));
+                    }
+                    else
+                    {
+                        processes.Add(BuildProcess(args, path, dir));
+                    }
+                    foreach (Process x in processes)
+                    {
+                        try
+                        {
+                            Int32 errors = 0;
+                            x.ErrorDataReceived += (o, e) =>
+                                                   {
+                                                       String data = e?.Data?.Trim();
+                                                       if (!String.IsNullOrEmpty(data))
+                                                       {
+                                                           errors++;
+                                                       }
+                                                   };
+                            Log(new LogEntry($"{Name}", $"Starting extraction process for file '{path}'...", LogType.Information));
+                            x.Start();
+                            x.BeginErrorReadLine();
+                            x.BeginOutputReadLine();
+                            x.WaitForExit();
+                            Log(new LogEntry($"{Name}", $"Process for file '{path}' has finished", LogType.Information));
+                            if (!errors.Equals(0))
+                            {
+                                continue;
+                            }
+
+                            Log(new LogEntry($"{Name}", $"Zero errors found, assuming a successful extraction for file '{path}'.", LogType.Information));
+                            if (!_configuration.DeleteArchiveAfterExtraction.Value)
+                            {
+                                continue;
+                            }
+
+                            Log(new LogEntry($"{Name}", $"Trying to delete archive '{path}'...", LogType.Information));
+                            File.Delete(path);
+                            Log(new LogEntry($"{Name}", $"Successfully deleted archive '{path}'.", LogType.Information));
+                            break;
+                        }
+                        catch (Exception ex)
+                        {
+                            Error(ex.Message);
+                        }
                     }
                 }
             }
@@ -108,7 +115,31 @@
             {
                 Error(ex.Message);
             }
+
             Finish();
+        }
+
+        private Boolean VerifyName(String path)
+        {
+            String filename = Path.GetFileNameWithoutExtension(path) ?? String.Empty;
+            Regex r = new Regex(@"\.part([0]*1)");
+            Match match = r.Match(filename);
+            if (match.Success)
+            {
+                Log(new LogEntry(Name, $"Identified file '{path} as first part of multiple'.", LogType.Information));
+                return true;
+            }
+
+            r = new Regex(@"\.part([0-9]+)");
+            match = r.Match(filename);
+
+            if (match.Success)
+            {
+                Log(new LogEntry(Name, $"Identified file '{path}' as part of a multipart archive. This file does not seem to be the first one and will be ignored.", LogType.Information));
+                return false;
+            }
+
+            return true;
         }
 
         private Process BuildProcess(String args, String path, String dir, String password = null)

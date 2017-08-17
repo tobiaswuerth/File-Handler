@@ -44,18 +44,26 @@
                 if (fbd.ShowDialog() == DialogResult.OK)
                 {
                     String dir = fbd.SelectedPath;
-                    if (!File.Exists(Path.Combine(dir, EXE_UNRAR_FILENAME)))
-                    {
-                        MessageBox.Show(this, $"File '{EXE_UNRAR_FILENAME}' not found in given directory. Please select a different directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        btnOpenWinrarDirectory_Click(btnOpenWinrarDirectory, EventArgs.Empty);
-                        return;
-                    }
-
-                    _db.WinrarExe = Directory.GetFiles(dir).First(x => Path.GetFileName(x).ToLower().Equals(EXE_UNRAR_FILENAME));
-                    
-                    txtWinrarDirectory.Text = dir.Trim();
+                    ValidateWinrarPathSelection(dir);
                 }
             }
+        }
+
+        private void ValidateWinrarPathSelection(String dir, Boolean silent = false)
+        {
+            if (!File.Exists(Path.Combine(dir, EXE_UNRAR_FILENAME)))
+            {
+                if (!silent)
+                {
+                    MessageBox.Show(this, $"File '{EXE_UNRAR_FILENAME}' not found in given directory. Please select a different directory.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    btnOpenWinrarDirectory_Click(btnOpenWinrarDirectory, EventArgs.Empty);
+                }
+                return;
+            }
+
+            _db.WinrarExe = Directory.GetFiles(dir).First(x => Path.GetFileName(x).ToLower().Equals(EXE_UNRAR_FILENAME));
+
+            txtWinrarDirectory.Text = dir.Trim();
         }
 
         private void cbxUsePassword_CheckedChanged(Object sender, EventArgs e)
@@ -155,6 +163,11 @@
         private void btnClear_Click(object sender, EventArgs e)
         {
             lbPasswords.Items.Clear();
+        }
+
+        private void FormConfiguration_Load(object sender, EventArgs e)
+        {
+            ValidateWinrarPathSelection("C:\\Program Files\\WinRAR", true);
         }
     }
 }
