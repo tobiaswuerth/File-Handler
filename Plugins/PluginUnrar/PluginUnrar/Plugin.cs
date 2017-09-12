@@ -21,6 +21,7 @@
     public class Plugin : PluginBase
     {
         private readonly DataBridge _configuration = new DataBridge();
+        private Boolean _currentFileIsFirstOfMultiple = false;
 
         public Plugin()
         {
@@ -79,6 +80,7 @@
                                                        String data = e?.Data?.Trim();
                                                        if (!String.IsNullOrEmpty(data))
                                                        {
+                                                           Log(new LogEntry($"{Name}", $"Error occurred: '{data}'", LogType.Error));
                                                            errors++;
                                                        }
                                                    };
@@ -99,7 +101,30 @@
                                 continue;
                             }
 
+                            if (_currentFileIsFirstOfMultiple)
+                            {
+                                Log(new LogEntry($"{Name}", $"Trying to identify other parts of '{path}'...", LogType.Information));
+                                // get all files in directory
+                                var files = Directory.GetFiles(Path.GetDirectoryName(path) ?? "");
+                                var fileName = Path.GetFileName(path);
+                                var basename = fileName.Substring(0, fileName.LastIndexOf(".part"));
+                                Regex r = new Regex(basename + @"\.part([0-9]+)");
+                                foreach (var file in files)
+                                {
+                                    Match match = r.Match(file);
+                                    if (match.Success)
+                                    {
+                                        Log(new LogEntry($"{Name}", $"Trying to delete archive '{file}'...", LogType.Information));
+                                        File.Delete(file);
+                                        Log(new LogEntry($"{Name}", $"Successfully deleted archive '{path}'.", LogType.Information));
+                                    }
+                                }
+                                break;
+                            }
+
+                            // if it is only this one file
                             Log(new LogEntry($"{Name}", $"Trying to delete archive '{path}'...", LogType.Information));
+
                             File.Delete(path);
                             Log(new LogEntry($"{Name}", $"Successfully deleted archive '{path}'.", LogType.Information));
                             break;
@@ -127,8 +152,10 @@
             if (match.Success)
             {
                 Log(new LogEntry(Name, $"Identified file '{path} as first part of multiple'.", LogType.Information));
+                _currentFileIsFirstOfMultiple = true;
                 return true;
             }
+            _currentFileIsFirstOfMultiple = false;
 
             r = new Regex(@"\.part([0-9]+)");
             match = r.Match(filename);
